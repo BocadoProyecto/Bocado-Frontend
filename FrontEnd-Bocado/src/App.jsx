@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './Components/Navbar'
+import { Faq } from './Components/faq'
 import Home from './pages/Home'
 import Catalogo from './pages/Catalogo'
 
@@ -8,6 +9,7 @@ import './App.css'
 function App() {
   return (
     <>
+    
       <Navbar />
       <main>
         <Routes>
@@ -16,7 +18,9 @@ function App() {
           
         </Routes>
       </main>
+      <Faq />
     </>
+
   )
 }
 
