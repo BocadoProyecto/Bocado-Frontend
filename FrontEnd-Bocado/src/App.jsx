@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
-import Navbar from './components/Navbar'
+import Navbar from './Components/Navbar'
 import Home from './pages/Home'
 import Catalogo from './pages/Catalogo'
-import Donar from './pages/Donar'
+
 import './App.css'
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/catalogo" element={<Catalogo />} />
-          <Route path="/donar" element={<Donar />} />
+          
         </Routes>
       </main>
     </>
