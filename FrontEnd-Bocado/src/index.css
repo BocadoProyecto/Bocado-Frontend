@@ -11,8 +11,8 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
@@ -24,6 +24,20 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --naranja: #cb7338;
+  --naranja-osc: #b0602b;
+  --naranja-suave: #f6e3d5;
+  --verde: #9eb28d;
+  --verde-oliva: #8e9d52;
+  --dorado: #e4a048;
+  --carbon: #2a2a28;
+  --gris: #8f8f8d;
+  --crema: #f3efe7;
+  --crema-clara: #f8f4ee;
+  --borde: #e3e1da;
+  --blanco: #ffffff;
+  --error: #b5432a;
+  --error-fondo: #fbe9e2;
 
   @media (max-width: 1024px) {
     font-size: 16px;

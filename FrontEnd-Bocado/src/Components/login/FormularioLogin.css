@@ -1,0 +1,78 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.login-form h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  color: var(--carbon);
+}
+
+.login-subtitulo {
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--gris);
+}
+
+.login-form label {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--carbon);
+}
+
+.login-form input {
+  height: 46px;
+  padding: 0 16px;
+  border: 1.5px solid var(--borde);
+  border-radius: 12px;
+  background: var(--blanco);
+  color: var(--carbon);
+  font: inherit;
+  font-size: 15px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.login-form input::placeholder {
+  color: #b5b3ad;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: var(--naranja);
+  box-shadow: 0 0 0 3px var(--naranja-suave);
+}
+
+.login-error {
+  margin: 8px 0 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--error-fondo);
+  color: var(--error);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.login-form button[type="submit"] {
+  height: 48px;
+  margin-top: 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--naranja);
+  color: var(--blanco);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.login-form button[type="submit"]:hover {
+  background: var(--naranja-osc);
+}
