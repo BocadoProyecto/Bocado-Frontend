@@ -1,0 +1,117 @@
+.catalogo {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 32px 80px;
+}
+
+.catalogo__volver {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 14px;
+}
+.catalogo__volver:hover {
+  color: var(--orange);
+}
+
+.catalogo__titulo {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.catalogo__subtitulo {
+  color: var(--ink-soft);
+  margin-top: 6px;
+}
+
+/*filtros */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  margin: 28px 0;
+  padding: 16px 20px;
+  background: var(--bg-chip);
+  border-radius: 16px;
+}
+
+.filtros__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+
+.filtros__campo select {
+  min-width: 190px;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: #fffaf2;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.filtros__campo select:focus {
+  outline: 2px solid var(--orange);
+  outline-offset: 1px;
+}
+
+.filtros__cantidad {
+  margin-left: auto;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+/* opciones en el catalogo */
+.catalogo__grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 22px;
+}
+
+.catalogo__vacio {
+  padding: 48px 0;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 600px) {
+  .catalogo {
+    padding: 16px 18px 56px;
+  }
+  .filtros__campo,
+  .filtros__campo select {
+    width: 100%;
+  }
+  .filtros__cantidad {
+    margin-left: 0;
+  }
+}
+/* Donar */
+.carrito__donar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.carrito__gracias {
+  font-weight: 800;
+  color: #3f6b3a;
+}

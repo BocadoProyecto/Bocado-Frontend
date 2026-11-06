@@ -1,0 +1,146 @@
+.carrito {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 32px 80px;
+}
+
+.carrito__volver {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 14px;
+}
+.carrito__volver:hover {
+  color: var(--orange);
+}
+
+.carrito__titulo {
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.carrito__vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 32px;
+  background: var(--bg-chip);
+  border-radius: 16px;
+  color: var(--ink-soft);
+}
+
+.carrito__contenido {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.carrito__lista {
+  list-style: none;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.carrito__item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  background: #fffaf2;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.carrito__emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  font-size: 2rem;
+  background: var(--bg-chip);
+  border-radius: 12px;
+}
+
+.carrito__info {
+  flex: 1;
+}
+
+.carrito__panaderia {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.carrito__nombre {
+  font-weight: 800;
+}
+
+.carrito__precio {
+  font-weight: 800;
+}
+
+.carrito__quitar {
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  cursor: pointer;
+}
+.carrito__quitar:hover {
+  color: var(--orange);
+}
+
+/* Resumen */
+.carrito__resumen {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px;
+  background: var(--bg-chip);
+  border-radius: 16px;
+}
+
+.carrito__fila {
+  display: flex;
+  justify-content: space-between;
+}
+
+.carrito__ahorro {
+  color: #3f6b3a;
+  font-weight: 600;
+}
+
+.carrito__total {
+  font-size: 1.25rem;
+  font-weight: 800;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.carrito__resumen .btn {
+  justify-content: center;
+}
+
+@media (max-width: 800px) {
+  .carrito {
+    padding: 16px 18px 56px;
+  }
+  .carrito__contenido {
+    flex-direction: column;
+  }
+  .carrito__resumen {
+    width: 100%;
+  }
+}
