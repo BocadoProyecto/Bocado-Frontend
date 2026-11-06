@@ -1,0 +1,100 @@
+.pago {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 32px 80px;
+}
+
+.pago__volver {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 14px;
+}
+.pago__volver:hover {
+  color: var(--orange);
+}
+
+.pago__titulo {
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+/* Métodos a la izquierda, pedido a la derecha */
+.pago__contenido {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 28px;
+  align-items: start;
+}
+
+.pago__caja {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px;
+  background: var(--bg-chip);
+  border-radius: 16px;
+}
+
+.pago__metodo {
+  padding: 14px 16px;
+  text-align: left;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #fffaf2;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+}
+.pago__metodo:hover {
+  border-color: var(--ink);
+}
+.pago__metodo--activo {
+  border-color: var(--orange);
+  color: var(--orange-dark);
+}
+
+.pago__fila {
+  display: flex;
+  justify-content: space-between;
+}
+.pago__total {
+  font-size: 1.25rem;
+  font-weight: 800;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.pago__confirmar {
+  justify-content: center;
+}
+.pago__confirmar:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.pago__donar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 800px) {
+  .pago {
+    padding: 16px 18px 56px;
+  }
+  .pago__contenido {
+    grid-template-columns: 1fr;
+  }
+}

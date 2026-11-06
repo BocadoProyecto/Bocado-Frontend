@@ -1,25 +1,87 @@
-import { Routes, Route } from "react-router-dom";
-//import Navbar from "./Components/Navbar/Navbar";
-import { Faq } from "./Components/faq/faq";
-//import Home from "./pages/Home";
-//import Catalogo from "./pages/Catalogo/Catalogo";
-import FormularioLogin from "./Components/login/FormularioLogin";
-import BotonIngresar from "./Components/login/BotonIngresar";
+import { useState } from "react";
+import Navbar from "./Components/navbar/Navbar";
+import Hero from "./Components/Hero/Hero";
+import Catalogo from "./Components/Catalogo/Catalogo";
+import Carrito from "./Components/Carrito/Carrito";
+import Pago from "./Components/Pago/Pago";
+import Donar from "./Components/Donar/Donar";
+// import { Faq } from "./Components/faq/faq";
 
 import "./App.css";
 
 function App() {
+  // Q pantalla se muestra
+  const [vista, setVista] = useState("caratula");
+
+  //la lista en el carrito
+  const [items, setItems] = useState([]);
+
+  function irA(nuevaVista) {
+    setVista(nuevaVista);
+    window.scrollTo(0, 0); // te lleva para arriba
+  }
+
+  function agregarAlCarrito(producto) {
+    const nuevaLista = items.slice(); // la listita
+    nuevaLista.push(producto); // le agregamos el producto
+    setItems(nuevaLista); // guardamos la lista nueva
+  }
+
+  function quitarDelCarrito(indice) {
+    // resta el prod y deja el resto
+    const nuevaLista = items.filter((producto, i) => i !== indice);
+    setItems(nuevaLista);
+  }
+
+  function vaciarCarrito() {
+    setItems([]);
+  }
+
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar
+        cartCount={items.length}
+        onInicio={() => irA("caratula")}
+        onExplorar={() => irA("catalogo")}
+        onCarrito={() => irA("carrito")}
+      />
+
       <main>
-        <BotonIngresar />
-        <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
-          {/* <Route path="/catalogo" element={<Catalogo />} /> */}
-        </Routes>
+        {vista === "caratula" && (
+          <Hero onVerProductos={() => irA("catalogo")} />
+        )}
+
+        {vista === "catalogo" && (
+          <Catalogo
+            onVolver={() => irA("caratula")}
+            onAgregar={agregarAlCarrito}
+          />
+        )}
+
+        {vista === "carrito" && (
+          <Carrito
+            items={items}
+            onQuitar={quitarDelCarrito}
+            onVaciar={vaciarCarrito}
+            onSeguir={() => irA("catalogo")}
+            onPagar={() => irA("pago")}
+          />
+        )}
+
+        {vista === "pago" && (
+          <Pago
+            items={items}
+            onVolver={() => irA("carrito")}
+            onVaciar={vaciarCarrito}
+            onDonar={() => irA("donar")}
+            onSeguir={() => irA("catalogo")}
+          />
+        )}
+
+        {vista === "donar" && (
+          <Donar onVolver={() => irA("pago")} onAgregar={agregarAlCarrito} />
+        )}
       </main>
-      <Faq />
     </>
   );
 }
