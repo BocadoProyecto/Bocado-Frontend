@@ -19,7 +19,7 @@ function BotonIngresar() {
 
   return (
     <>
-      <button className="btn-ingresar" onClick={() => setAbierto(true)}>
+      <button className="btn btn--outline btn--sm" onClick={() => setAbierto(true)}>
         Ingresar
       </button>
 

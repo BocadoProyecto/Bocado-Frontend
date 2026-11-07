@@ -1,0 +1,91 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: #fffaf2;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.card__imagen {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 150px;
+  background: var(--bg-chip);
+}
+.card__emoji {
+  font-size: 3.6rem;
+}
+.card__descuento {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.card__cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  flex: 1;
+}
+
+.card__panaderia {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--orange);
+}
+.card__nombre {
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.card__categoria {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.card__precios {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 8px;
+}
+.card__precio {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+.card__precio-original {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  text-decoration: line-through;
+}
+
+.card__disponibles {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.card__boton {
+  margin-top: auto;
+  justify-content: center;
+}
+.card__cuerpo .card__disponibles {
+  margin-bottom: 12px;
+}
