@@ -1,26 +1,60 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Catalogo.css";
 import ProductCard from "../productcard/ProductCard";
+import FiltroDistancia from "./FiltroDistancia";
 import { productos, panaderias, categorias } from "../../Data/productos";
 
-// Para q? onVolver: vuelve a la carátula. onAgregar: se ejecuta al agregar un producto.
+// onVolver: vuelve a la carátula. onAgregar: se ejecuta al agregar un producto.
 export default function Catalogo({ onVolver, onAgregar }) {
-  // Estado de los filtros. "todas" significa "sin filtrar" son todas las oociones .
+  // Estado de los filtros. "todas" significa "sin filtrar".
   const [panaderia, setPanaderia] = useState("todas");
   const [categoria, setCategoria] = useState("todas");
+  const [ubicacion, setUbicacion] = useState(null);
+  const [radio, setRadio] = useState("todos");
+  const [cercanas, setCercanas] = useState(null); // panaderías que devuelve el backend
+  const [errorServidor, setErrorServidor] = useState("");
 
-  // quedan solo con los productos que cumplen los dos filtros a la vez.
+  // cuando hay radio y ubicación, le pedimos al backend las panaderías cercanas
+  useEffect(() => {
+    if (radio === "todos" || !ubicacion) {
+      return;
+    }
+
+    fetch(
+      `http://localhost:3000/panaderias?lat=${ubicacion.lat}&lng=${ubicacion.lng}&radio=${radio}`
+    )
+      .then((respuesta) => respuesta.json())
+      .then((datos) => {
+        setCercanas(datos);
+        setErrorServidor("");
+      })
+      .catch(() => {
+        setErrorServidor("No pudimos conectar con el servidor.");
+      });
+  }, [radio, ubicacion]);
+
+  // quedan solo los productos que cumplen los tres filtros a la vez.
   const visibles = productos.filter((p) => {
     const cumplePanaderia = panaderia === "todas" || p.panaderia === panaderia;
     const cumpleCategoria = categoria === "todas" || p.categoria === categoria;
-    return cumplePanaderia && cumpleCategoria;
+
+    let cumpleDistancia = true;
+    if (radio !== "todos" && ubicacion) {
+      // el producto entra si su panadería está en la lista que mandó el backend
+      cumpleDistancia =
+        cercanas !== null && cercanas.some((c) => c.nombre === p.panaderia);
+    }
+
+    return cumplePanaderia && cumpleCategoria && cumpleDistancia;
   });
 
-  const hayFiltros = panaderia !== "todas" || categoria !== "todas";
+  const hayFiltros =
+    panaderia !== "todas" || categoria !== "todas" || radio !== "todos";
 
   function limpiarFiltros() {
     setPanaderia("todas");
     setCategoria("todas");
+    setRadio("todos");
   }
 
   return (
@@ -53,6 +87,13 @@ export default function Catalogo({ onVolver, onAgregar }) {
           </select>
         </label>
 
+        <FiltroDistancia
+          radio={radio}
+          ubicacion={ubicacion}
+          onCambiarRadio={setRadio}
+          onUbicacion={setUbicacion}
+        />
+
         <label className="filtros__campo">
           <span>Producto</span>
           <select
@@ -82,6 +123,8 @@ export default function Catalogo({ onVolver, onAgregar }) {
           {visibles.length} {visibles.length === 1 ? "producto" : "productos"}
         </p>
       </div>
+
+      {errorServidor && <p className="catalogo__vacio">{errorServidor}</p>}
 
       {visibles.length > 0 ? (
         <div className="catalogo__grilla">
