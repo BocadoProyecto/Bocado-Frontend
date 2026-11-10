@@ -115,3 +115,9 @@
   font-weight: 800;
   color: #3f6b3a;
 }
+.filtros__error {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 600;
+  color: var(--orange);
+}
