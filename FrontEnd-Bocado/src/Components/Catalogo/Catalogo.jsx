@@ -2,17 +2,49 @@ import { useState, useEffect } from "react";
 import "./Catalogo.css";
 import ProductCard from "../productcard/ProductCard";
 import FiltroDistancia from "./FiltroDistancia";
-import { productos, panaderias, categorias } from "../../Data/productos";
+import {  categorias } from "../../Data/productos";
 
 // onVolver: vuelve a la carátula. onAgregar: se ejecuta al agregar un producto.
 export default function Catalogo({ onVolver, onAgregar }) {
   // Estado de los filtros. "todas" significa "sin filtrar".
   const [panaderia, setPanaderia] = useState("todas");
+  const [panaderias, setPanaderias] = useState([]);
   const [categoria, setCategoria] = useState("todas");
   const [ubicacion, setUbicacion] = useState(null);
+  const [productos, setProductos] = useState([]);
   const [radio, setRadio] = useState("todos");
   const [cercanas, setCercanas] = useState(null); // panaderías que devuelve el backend
   const [errorServidor, setErrorServidor] = useState("");
+
+// cuando los corchetes estan vacios es para que se carguen una unica vez cuando se carga la pagina
+  useEffect(() => {
+  fetch(
+      `http://localhost:3000/productos`).then((respuesta) => respuesta.json())
+      .then((datos) => {
+        setProductos(datos);
+        setErrorServidor("");
+      })
+      .catch(() => {
+        setErrorServidor("No pudimos conectar con el servidor.");
+      });}
+    ,[]);
+    
+    useEffect(() => {
+     
+
+    fetch(
+      `http://localhost:3000/panaderias`
+    )
+      .then((respuesta) => respuesta.json())
+      .then((datos) => {
+        setPanaderias(datos);
+        setErrorServidor("");
+      })
+      .catch(() => {
+        setErrorServidor("No pudimos conectar con el servidor.");
+      });
+  }, []);
+  
 
   // cuando hay radio y ubicación, le pedimos al backend las panaderías cercanas
   useEffect(() => {
@@ -33,6 +65,7 @@ export default function Catalogo({ onVolver, onAgregar }) {
       });
   }, [radio, ubicacion]);
 
+  
   // quedan solo los productos que cumplen los tres filtros a la vez.
   const visibles = productos.filter((p) => {
     const cumplePanaderia = panaderia === "todas" || p.panaderia === panaderia;
@@ -71,24 +104,24 @@ export default function Catalogo({ onVolver, onAgregar }) {
         </div>
       </div>
 
-      <div className="filtros">
+      
+        <div className="filtros">
         <label className="filtros__campo">
           <span>Panadería</span>
-          <select
+                    <select
             value={panaderia}
             onChange={(e) => setPanaderia(e.target.value)}
           >
             <option value="todas">Todas</option>
-            {panaderias.map((nombre) => (
-              <option key={nombre} value={nombre}>
-                {nombre}
+            {panaderias.map((p) => (
+              <option key={p.id} value={p.nombre}>
+                {p.nombre}
               </option>
             ))}
           </select>
         </label>
 
-        <FiltroDistancia
-          radio={radio}
+        <FiltroDistancia          radio={radio}
           ubicacion={ubicacion}
           onCambiarRadio={setRadio}
           onUbicacion={setUbicacion}
