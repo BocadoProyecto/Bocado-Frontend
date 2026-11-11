@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./Catalogo.css";
 import ProductCard from "../productcard/ProductCard";
 import FiltroDistancia from "./FiltroDistancia";
-import {  categorias } from "../../Data/productos";
+
 
 // onVolver: vuelve a la carátula. onAgregar: se ejecuta al agregar un producto.
 export default function Catalogo({ onVolver, onAgregar }) {
@@ -65,7 +65,7 @@ export default function Catalogo({ onVolver, onAgregar }) {
       });
   }, [radio, ubicacion]);
 
-  
+  const categorias = [...new Set(productos.map((p) => p.categoria))];
   // quedan solo los productos que cumplen los tres filtros a la vez.
   const visibles = productos.filter((p) => {
     const cumplePanaderia = panaderia === "todas" || p.panaderia === panaderia;
@@ -159,12 +159,15 @@ export default function Catalogo({ onVolver, onAgregar }) {
 
       {errorServidor && <p className="catalogo__vacio">{errorServidor}</p>}
 
-      {visibles.length > 0 ? (
+            {visibles.length > 0 ? (
         <div className="catalogo__grilla">
           {visibles.map((producto) => (
             <ProductCard
               key={producto.id}
               producto={producto}
+              datosPanaderia={panaderias.find(
+                (p) => p.nombre === producto.panaderia
+              )}
               onAgregar={onAgregar}
             />
           ))}
