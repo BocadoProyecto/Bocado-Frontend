@@ -1,5 +1,4 @@
-// Datos de ejemplo. Después se reemplazan por los productos reales.
-// Cada producto lleva el nombre de su panadería, así después se puede filtrar.
+// se tiene q borrar 
 
 export const productos = [
   // La Espiga
@@ -24,4 +23,4 @@ export const productos = [
 // Listas para los filtros: se calculan solas a partir de los productos.
 // "new Set" saca los repetidos y ".sort()" los ordena alfabéticamente.
 export const panaderias = [...new Set(productos.map((p) => p.panaderia))].sort();
-export const categorias = [...new Set(productos.map((p) => p.categoria))].sort();
+export const categorias = [...new Set(productos.map((p) => p.categoria))].sort();
