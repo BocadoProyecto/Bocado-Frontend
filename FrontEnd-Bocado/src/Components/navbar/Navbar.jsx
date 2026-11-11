@@ -2,14 +2,13 @@ import "./Navbar.css";
 import logo from "../../assets/logo.png";
 import BotonIngresar from "../login/BotonIngresar";
 
-// que es? cartCount: cantidad en el carrito.
+// cartCount: cantidad de productos en el carrito.
 export default function Navbar({
   cartCount = 0,
   onInicio,
-  onExplorar,
   onCarrito,
 }) {
-  // ver para q es
+  // evita que el link recargue la página y ejecuta la acción que llega por props
   function manejar(e, accion) {
     e.preventDefault();
     if (accion) accion();
@@ -26,14 +25,6 @@ export default function Navbar({
       </a>
 
       <nav className="navbar__nav">
-        <a
-          href="#"
-          className="navbar__link"
-          onClick={(e) => manejar(e, onExplorar)}
-        >
-          Explorar
-        </a>
-
         {/* El login: botón + modal (Components/login) */}
         <BotonIngresar />
 

@@ -22,9 +22,12 @@
 }
 
 .navbar__link {
-  font-family: var(--font-display);
-  font-size: 0.85rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--tinta);
   transition: color 0.2s;
+
 }
 .navbar__link:hover {
   color: var(--orange);
@@ -32,7 +35,8 @@
 
 .navbar__cart {
   padding: 9px 18px;
-  font-weight: 800;
+  font-weight: 700;
+
 }
 
 @media (max-width: 900px) {
@@ -47,10 +51,8 @@
   }
 }
 .navbar__logo img {
-  height: 88px;
+  height: 56px;
   width: auto;
+
 }
-.navbar__logo img {
-  height: 88px;
-  width: auto;
-}
+

@@ -5,24 +5,31 @@
 }
 
 .catalogo__volver {
-  background: none;
-  border: none;
-  font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--ink-soft);
-  cursor: pointer;
-  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   margin-bottom: 14px;
+  padding: 9px 20px;
+  border: 1.5px solid var(--tinta);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--tinta);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 .catalogo__volver:hover {
-  color: var(--orange);
+  background: var(--tinta);
+  color: #fff;
 }
 
 .catalogo__titulo {
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--tinta);
+  font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.1;
 }
 .catalogo__subtitulo {
@@ -47,7 +54,7 @@
   flex-direction: column;
   gap: 4px;
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--ink-soft);
@@ -59,13 +66,13 @@
   font-family: inherit;
   font-size: 0.95rem;
   color: var(--ink);
-  background: #fffaf2;
+  background: #FFFBF5;
   border: 1px solid var(--line);
   border-radius: 999px;
   cursor: pointer;
 }
 .filtros__campo select:focus {
-  outline: 2px solid var(--orange);
+  outline: 3px solid var(--tinta);
   outline-offset: 1px;
 }
 
@@ -112,8 +119,8 @@
   color: var(--ink-soft);
 }
 .carrito__gracias {
-  font-weight: 800;
-  color: #3f6b3a;
+  font-weight: 700;
+  color: #3D6438;
 }
 .filtros__error {
   text-transform: none;
