@@ -1,7 +1,8 @@
 import "./ProductCard.css";
 
+
 // Recibe un prod y solo se ajecuta al agregar
-export default function ProductCard({ producto, onAgregar, textoBoton = "Agregar" }) {
+export default function ProductCard({ producto, datosPanaderia, onAgregar, textoBoton = "Agregar" }) {
   const {
     nombre,
     panaderia,
@@ -25,7 +26,16 @@ export default function ProductCard({ producto, onAgregar, textoBoton = "Agregar
       </div>
 
       <div className="card__cuerpo">
-        <p className="card__panaderia">{panaderia}</p>
+        <p className="card__panaderia">
+  {panaderia}
+  {datosPanaderia && (
+    <span className="card__info">
+      <span>📍 {datosPanaderia.direccion ?? "Sin dirección"}</span>
+      <span>📞 {datosPanaderia.telefono ?? "Sin teléfono"}</span>
+      <span>🕒 {datosPanaderia.horario ?? "Sin horario"}</span>
+    </span>
+  )}
+</p>
         <h3 className="card__nombre">{nombre}</h3>
         <p className="card__categoria">{categoria}</p>
 
