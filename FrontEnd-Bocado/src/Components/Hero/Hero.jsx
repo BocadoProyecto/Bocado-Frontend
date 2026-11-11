@@ -6,9 +6,7 @@ export default function Hero({ onVerProductos }) {
   return (
     <section className="hero">
       <div className="hero__content">
-        <span className="chip">
-          Productos frescos · Precios accesibles · Menos desperdicio
-        </span>
+        
 
         <h1 className="hero__title">
           Aprovechá más.
