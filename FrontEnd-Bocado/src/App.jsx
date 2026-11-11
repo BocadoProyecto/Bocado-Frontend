@@ -5,7 +5,9 @@ import Catalogo from "./Components/Catalogo/Catalogo";
 import Carrito from "./Components/Carrito/Carrito";
 import Pago from "./Components/Pago/Pago";
 import Donar from "./Components/Donar/Donar";
-// import { Faq } from "./Components/faq/faq";
+import { Faq } from "./Components/faq/faq";
+import Terminos from "./Components/terminos/Terminos";
+import Footer from "./Components/footer/Footer";
 
 import "./App.css";
 
@@ -81,7 +83,19 @@ function App() {
         {vista === "donar" && (
           <Donar onVolver={() => irA("pago")} onAgregar={agregarAlCarrito} />
         )}
+
+        {vista === "faq" && <Faq onVolver={() => irA("caratula")} />}
+
+        {vista === "terminos" && <Terminos onVolver={() => irA("caratula")} />}
       </main>
+
+      <Footer
+        onInicio={() => irA("caratula")}
+        onExplorar={() => irA("catalogo")}
+        onCarrito={() => irA("carrito")}
+        onFaq={() => irA("faq")}
+        onTerminos={() => irA("terminos")}
+      />
     </>
   );
 }

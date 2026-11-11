@@ -115,3 +115,37 @@
   font-weight: 800;
   color: #3f6b3a;
 }
+.filtros__error {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 600;
+  color: var(--orange);
+}
+.card__panaderia {
+  cursor: help;
+}
+
+.card__info {
+  display: none;
+  position: absolute;
+  top: 34px;
+  left: 12px;
+  right: 12px;
+  z-index: 10;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+
+.card__panaderia:hover .card__info {
+  display: flex;
+}
