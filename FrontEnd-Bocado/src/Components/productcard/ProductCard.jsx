@@ -10,7 +10,7 @@ export default function ProductCard({ producto, datosPanaderia, onAgregar, texto
     precio,
     precioOriginal,
     disponibles,
-    emoji,
+    imagen,
   } = producto;
 
   // muestra el porcentaje de dto
@@ -19,23 +19,34 @@ export default function ProductCard({ producto, datosPanaderia, onAgregar, texto
   return (
     <article className="card">
       <div className="card__imagen">
-        <span className="card__emoji" aria-hidden="true">
-          {emoji}
-        </span>
+        {imagen && (
+          <img
+            className="card__foto"
+            src={`http://localhost:3000${imagen}`}
+            alt={nombre}
+          />
+        )}
         <span className="card__descuento">-{descuento}%</span>
       </div>
 
       <div className="card__cuerpo">
         <p className="card__panaderia">
-  {panaderia}
-  {datosPanaderia && (
-    <span className="card__info">
-      <span>📍 {datosPanaderia.direccion ?? "Sin dirección"}</span>
-      <span>📞 {datosPanaderia.telefono ?? "Sin teléfono"}</span>
-      <span>🕒 {datosPanaderia.horario ?? "Sin horario"}</span>
-    </span>
-  )}
-</p>
+          {datosPanaderia && datosPanaderia.logo && (
+            <img
+              className="card__logo"
+              src={`http://localhost:3000${datosPanaderia.logo}`}
+              alt=""
+            />
+          )}
+          {panaderia}
+          {datosPanaderia && (
+            <span className="card__info">
+              <span>📍 {datosPanaderia.direccion ?? "Sin dirección"}</span>
+              <span>📞 {datosPanaderia.telefono ?? "Sin teléfono"}</span>
+              <span>🕒 {datosPanaderia.horario ?? "Sin horario"}</span>
+            </span>
+          )}
+        </p>
         <h3 className="card__nombre">{nombre}</h3>
         <p className="card__categoria">{categoria}</p>
 

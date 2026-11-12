@@ -1,17 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;500;600;700&display=swap");
 
 :root {
-  --bg: #f4efe7;
-  --bg-chip: #e6dcc8;
-  --orange: #c8692f;
-  --orange-dark: #b05a26;
+  --bg: #F7EFE3;
+  --bg-chip: #EFE3D2;
+  --orange: #A0522A;
+  --orange-dark: #84421F;
   --green: #9db48c;
-  --ink: #1f1f1f;
-  --ink-soft: #4a4a4a;
-  --line: #c9c3b8;
+  --ink: #3A3631;
+  --ink-soft: #6B6259;
+  --line: #E2D3BF;
+  --tinta: #1B3B3C;
 
-  --font-display: "Alfa Slab One", serif;
-  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Caprasimo", Georgia, serif;
+  --font-body: "Figtree", system-ui, sans-serif;
 }
 
 *,
@@ -39,7 +40,6 @@ img {
   display: block;
 }
 
-
 .btn {
   display: inline-flex;
   align-items: center;
@@ -55,6 +55,13 @@ img {
 }
 .btn:hover {
   transform: translateY(-1px);
+}
+.btn--oscuro {
+  background: var(--tinta);
+  color: #fff;
+}
+.btn--oscuro:hover {
+  background: #142b2c;
 }
 .btn--primary {
   background: var(--orange);
@@ -90,6 +97,6 @@ img {
   --crema-clara: #f8f4ee;
   --borde: var(--line);
   --blanco: #ffffff;
-  --error: #b5432a;
-  --error-fondo: #fbe9e2;
+  --error: #A3341F;
+  --error-fondo: #FBE3DA;
 }

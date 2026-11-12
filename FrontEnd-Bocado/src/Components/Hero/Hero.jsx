@@ -1,14 +1,12 @@
 import "./Hero.css";
-import croissants from "../../assets/croissants.jpg";
+import bocado_bolsa_panaderia from "../../assets/bocado_bolsa_panaderia.jpg";
 
 //  que es? onVerProductos: función que le llega desde App para pasar al catálogo
 export default function Hero({ onVerProductos }) {
   return (
     <section className="hero">
       <div className="hero__content">
-        <span className="chip">
-          Productos frescos · Precios accesibles · Menos desperdicio
-        </span>
+        
 
         <h1 className="hero__title">
           Aprovechá más.
@@ -45,9 +43,7 @@ export default function Hero({ onVerProductos }) {
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
           </button>
-          <a href="#" className="btn btn--outline">
-            Adherir mi panadería
-          </a>
+          
         </div>
       </div>
 
@@ -70,8 +66,8 @@ export default function Hero({ onVerProductos }) {
         {/* La foto está en src/assets/croissants.jpg */}
         <img
           className="hero__img"
-          src={croissants}
-          alt="croissants y panes recién horneados"
+          src={bocado_bolsa_panaderia}
+                    alt="Bolsa de papel de Bocado con panes y croissants"
         />
       </div>
     </section>
