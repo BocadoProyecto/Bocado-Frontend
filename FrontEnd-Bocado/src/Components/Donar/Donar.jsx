@@ -1,6 +1,6 @@
 import "../Catalogo/Catalogo.css";
 import ProductCard from "../productcard/ProductCard";
-import { productos } from "../../Data/productos";
+import { useState, useEffect } from "react";
 
 // va alos   productos que se pueden donar.
 // onVolver: vuelve al pago. onAgregar: suma el producto al carrito.
@@ -14,7 +14,8 @@ export default function Donar({ onVolver, onAgregar }) {
           </button>
           <h2 className="catalogo__titulo">Donar productos</h2>
           <p className="catalogo__subtitulo">
-            Elegí qué producto querés donar para que llegue a quienes lo necesitan.
+            Elegí qué producto querés donar para que llegue a quienes lo
+            necesitan.
           </p>
         </div>
       </div>
@@ -31,4 +32,4 @@ export default function Donar({ onVolver, onAgregar }) {
       </div>
     </section>
   );
-}
+}
