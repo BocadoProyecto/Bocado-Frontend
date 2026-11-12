@@ -22,7 +22,7 @@ export default function ProductCard({ producto, datosPanaderia, onAgregar, texto
         {imagen && (
           <img
             className="card__foto"
-            src={`http://localhost:3000${imagen}`}
+            src={`http://localhost:3000/Imagenes/Productos/${imagen}`}
             alt={nombre}
           />
         )}
@@ -34,7 +34,7 @@ export default function ProductCard({ producto, datosPanaderia, onAgregar, texto
           {datosPanaderia && datosPanaderia.logo && (
             <img
               className="card__logo"
-              src={`http://localhost:3000${datosPanaderia.logo}`}
+              src={`http://localhost:3000/Imagenes/Panaderias/${datosPanaderia.logo}`}
               alt=""
             />
           )}
