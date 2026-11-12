@@ -1,9 +1,13 @@
 import { useState } from "react";
+import ModalPago from "./ModalPago";
 import "./Pago.css";
+
+// El método que abre el pop up de Stripe
+const METODO_TARJETA = "Tarjeta de crédito o débito";
 
 // Pagos para elegir
 const metodos = [
-  "Tarjeta de crédito o débito",
+  METODO_TARJETA,
   "Mercado Pago",
   "Transferencia bancaria",
   "Efectivo al retirar",
@@ -14,6 +18,10 @@ export default function Pago({ items, onVolver, onVaciar, onDonar, onSeguir }) {
   const [metodo, setMetodo] = useState("");
   // confirmado: solo si confirmo el pago
   const [confirmado, setConfirmado] = useState(false);
+  // si el pop up de pago con tarjeta está abierto
+  const [mostrarModal, setMostrarModal] = useState(false);
+  // número de referencia que devuelve Stripe (solo con tarjeta)
+  const [idPago, setIdPago] = useState("");
 
   // Total a pagar
   let total = 0;
@@ -21,9 +29,26 @@ export default function Pago({ items, onVolver, onVaciar, onDonar, onSeguir }) {
     total = total + producto.precio;
   });
 
-  function confirmar() {
+  // Deja la compra como terminada y vacía el carrito
+  function finalizarCompra() {
     setConfirmado(true);
     onVaciar();
+  }
+
+  // Botón "Pagar": con tarjeta abre el pop up, con los otros métodos confirma directo
+  function confirmar() {
+    if (metodo === METODO_TARJETA) {
+      setMostrarModal(true);
+      return;
+    }
+    finalizarCompra();
+  }
+
+  // Stripe cobró bien: cerramos el pop up y mostramos el gracias
+  function pagoExitoso(idDelPago) {
+    setIdPago(idDelPago);
+    setMostrarModal(false);
+    finalizarCompra();
   }
 
   // Para donar
@@ -47,6 +72,7 @@ export default function Pago({ items, onVolver, onVaciar, onDonar, onSeguir }) {
         <h2 className="pago__titulo">¡Compra confirmada! 🎉</h2>
         <div className="pago__caja">
           <p>Pagaste con: {metodo}</p>
+          {idPago !== "" && <p>Referencia del pago: {idPago}</p>}
           <p>Gracias por ayudar a que no se desperdicie comida.</p>
           <button
             type="button"
@@ -106,12 +132,21 @@ export default function Pago({ items, onVolver, onVaciar, onDonar, onSeguir }) {
             onClick={confirmar}
             disabled={metodo === "" || items.length === 0}
           >
-            Confirmar pago
+            Pagar
           </button>
 
           {cajaDonar}
         </aside>
       </div>
+
+      {mostrarModal && (
+        <ModalPago
+          items={items}
+          total={total}
+          onCerrar={() => setMostrarModal(false)}
+          onExito={pagoExitoso}
+        />
+      )}
     </section>
   );
 }
