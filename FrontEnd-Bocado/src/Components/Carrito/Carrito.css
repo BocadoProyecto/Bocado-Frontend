@@ -144,3 +144,58 @@
     width: 100%;
   }
 }
+
+.carrito__listas {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.carrito__grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.carrito__grupo-encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.carrito__grupo-encabezado h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+.carrito__grupo-encabezado span {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.carrito__subtotal {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.carrito__grupo--donar {
+  padding: 16px;
+  background: #fff8d6;
+  border: 1px dashed #e0b000;
+  border-radius: 16px;
+}
+.carrito__grupo--donar .carrito__item {
+  background: #fffdf3;
+  border-color: #f2e2a0;
+}
+.carrito__grupo--donar .carrito__panaderia,
+.carrito__grupo--donar .carrito__subtotal {
+  color: #9a6a00;
+}
+
+.carrito__fila--donar {
+  color: #9a6a00;
+  font-weight: 600;
+}

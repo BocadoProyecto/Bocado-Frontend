@@ -1,10 +1,13 @@
 import "./Navbar.css";
 import logo from "../../assets/logo.png";
 import BotonIngresar from "../login/BotonIngresar";
+import BtnDonar from "../btnDonar/BtnDonar";
 
 // cartCount: cantidad de productos en el carrito.
 export default function Navbar({
   cartCount = 0,
+  modoDonar = false,
+  onCambiarModoDonar,
   onInicio,
   onCarrito,
 }) {
@@ -25,6 +28,8 @@ export default function Navbar({
       </a>
 
       <nav className="navbar__nav">
+        <BtnDonar activo={modoDonar} onCambiar={onCambiarModoDonar} />
+
         {/* El login: botón + modal (Components/login) */}
         <BotonIngresar />
 
@@ -54,4 +59,4 @@ export default function Navbar({
       </nav>
     </header>
   );
-}
+}
