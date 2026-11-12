@@ -8,6 +8,7 @@ import Donar from "./Components/Donar/Donar";
 import { Faq } from "./Components/faq/faq";
 import Terminos from "./Components/terminos/Terminos";
 import Footer from "./Components/footer/Footer";
+import AnimacionIntro from "./Components/animacionIntro/AnimacionIntro";
 
 import "./App.css";
 
@@ -18,14 +19,18 @@ function App() {
   //la lista en el carrito
   const [items, setItems] = useState([]);
 
+  const [modoDonar, setModoDonar] = useState(false);
+
+  const [mostrarIntro, setMostrarIntro] = useState(true);
+
   function irA(nuevaVista) {
     setVista(nuevaVista);
     window.scrollTo(0, 0); // te lleva para arriba
   }
 
-  function agregarAlCarrito(producto) {
+  function agregarAlCarrito(producto, esDonacion = modoDonar) {
     const nuevaLista = items.slice(); // la listita
-    nuevaLista.push(producto); // le agregamos el producto
+    nuevaLista.push({ ...producto, donacion: esDonacion }); // le agregamos el producto
     setItems(nuevaLista); // guardamos la lista nueva
   }
 
@@ -41,8 +46,14 @@ function App() {
 
   return (
     <>
+      {mostrarIntro && (
+        <AnimacionIntro onTerminar={() => setMostrarIntro(false)} />
+      )}
+
       <Navbar
         cartCount={items.length}
+        modoDonar={modoDonar}
+        onCambiarModoDonar={setModoDonar}
         onInicio={() => irA("caratula")}
         onExplorar={() => irA("catalogo")}
         onCarrito={() => irA("carrito")}
@@ -81,7 +92,10 @@ function App() {
         )}
 
         {vista === "donar" && (
-          <Donar onVolver={() => irA("pago")} onAgregar={agregarAlCarrito} />
+          <Donar
+            onVolver={() => irA("pago")}
+            onAgregar={(producto) => agregarAlCarrito(producto, true)}
+          />
         )}
 
         {vista === "faq" && <Faq onVolver={() => irA("caratula")} />}

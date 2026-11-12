@@ -1,0 +1,177 @@
+.btn-donar {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--ink);
+  font-weight: 600;
+}
+.btn-donar:hover {
+  border-color: #e0b000;
+}
+
+.btn-donar__punto {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f5c518;
+  box-shadow: 0 0 0 3px #fff3c4;
+}
+
+.btn-donar--activo {
+  background: #f5c518;
+  border-color: #f5c518;
+  color: var(--ink);
+  font-weight: 700;
+}
+.btn-donar--activo:hover {
+  background: #e0b000;
+  border-color: #e0b000;
+}
+.btn-donar--activo .btn-donar__punto {
+  background: #fff;
+  box-shadow: none;
+  animation: latido 1.6s ease-in-out infinite;
+}
+
+@keyframes latido {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.35);
+  }
+}
+
+.btn-donar__modal {
+  text-align: center;
+}
+
+.btn-donar__icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: #fff3c4;
+  font-size: 30px;
+}
+
+.btn-donar__titulo {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: var(--ink);
+}
+
+.btn-donar__texto {
+  margin-top: 8px;
+  color: var(--ink-soft);
+}
+
+.btn-donar__lista {
+  list-style: none;
+  margin: 20px 0 24px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: #fffbe6;
+  text-align: left;
+  font-size: 0.92rem;
+}
+.btn-donar__lista li {
+  position: relative;
+  padding-left: 24px;
+}
+.btn-donar__lista li + li {
+  margin-top: 8px;
+}
+.btn-donar__lista li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #9a6a00;
+  font-weight: 700;
+}
+
+.btn-donar__acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.btn-donar__acciones .btn {
+  justify-content: center;
+}
+.btn-donar__activar {
+  background: #f5c518;
+  color: var(--ink);
+  font-weight: 700;
+}
+.btn-donar__activar:hover {
+  background: #e0b000;
+}
+
+body {
+  transition:
+    background 0.4s,
+    box-shadow 0.4s;
+}
+
+body.modo-donar {
+  --bg: #ffffff;
+  --bg-chip: #fff6cc;
+  --orange: #9a6a00;
+  --orange-dark: #7a5400;
+  --line: #f2e2a0;
+  --naranja: #9a6a00;
+  --naranja-osc: #7a5400;
+  --naranja-suave: #fff1b8;
+  --crema: #ffffff;
+  --crema-clara: #fffdf3;
+  --borde: #f2e2a0;
+  box-shadow: inset 0 6px 0 #f5c518;
+}
+
+body.modo-donar .btn--primary,
+body.modo-donar .card__descuento,
+body.modo-donar .footer__insignia,
+body.modo-donar .faq__icono,
+body.modo-donar .login-form button[type="submit"] {
+  background: #f5c518;
+  color: var(--ink);
+}
+body.modo-donar .btn--primary:hover,
+body.modo-donar .login-form button[type="submit"]:hover {
+  background: #e0b000;
+}
+
+body.modo-donar .card,
+body.modo-donar .carrito__item,
+body.modo-donar .pago__metodo,
+body.modo-donar .faq__item--abierta,
+body.modo-donar .filtros__campo select,
+body.modo-donar .modal-pago__caja {
+  background: #fffdf3;
+}
+
+body.modo-donar .card__imagen {
+  background: #fff3c4;
+}
+
+body.modo-donar .catalogo__volver {
+  border-color: #e0b000;
+  color: var(--ink);
+}
+body.modo-donar .catalogo__volver:hover {
+  background: #f5c518;
+  border-color: #f5c518;
+  color: var(--ink);
+}
+
+body.modo-donar .filtros__campo select:focus {
+  outline-color: #f5c518;
+}
+
+body.modo-donar .card:hover {
+  box-shadow: 0 10px 24px rgba(224, 176, 0, 0.22);
+}

@@ -98,3 +98,45 @@
     grid-template-columns: 1fr;
   }
 }
+
+.pago__grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pago__grupo h4 {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.pago__subtotal {
+  padding-top: 6px;
+  border-top: 1px dashed var(--line);
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.pago__grupo--donar {
+  padding: 12px 14px;
+  background: #fff8d6;
+  border: 1px dashed #e0b000;
+  border-radius: 12px;
+}
+.pago__grupo--donar h4,
+.pago__grupo--donar .pago__subtotal {
+  color: #9a6a00;
+}
+.pago__grupo--donar .pago__subtotal {
+  border-top-color: #f2e2a0;
+}
+
+.pago__gracias-donar {
+  padding: 12px 14px;
+  background: #fff8d6;
+  border-radius: 12px;
+  color: #7a5400;
+  font-weight: 700;
+}
