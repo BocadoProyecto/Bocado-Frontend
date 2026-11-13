@@ -5,8 +5,8 @@ import FiltroDistancia from "./FiltroDistancia";
 
 
 // onVolver: vuelve a la carátula. onAgregar: se ejecuta al agregar un producto.
-export default function Catalogo({ onVolver, onAgregar }) {
-  // Estado de los filtros. "todas" significa "sin filtrar".
+export default function Catalogo({ onVolver, onAgregar, onQuitarUno, items = [], modoDonar = false }) {
+// Estado de los filtros. "todas" significa "sin filtrar".
   const [panaderia, setPanaderia] = useState("todas");
   const [panaderias, setPanaderias] = useState([]);
   const [categoria, setCategoria] = useState("todas");
@@ -161,16 +161,43 @@ export default function Catalogo({ onVolver, onAgregar }) {
 
             {visibles.length > 0 ? (
         <div className="catalogo__grilla">
-          {visibles.map((producto) => (
-            <ProductCard
-              key={producto.id}
-              producto={producto}
-              datosPanaderia={panaderias.find(
-                (p) => p.nombre === producto.panaderia
-              )}
-              onAgregar={onAgregar}
-            />
-          ))}
+                    {visibles.map((producto) => {
+            // cuántas unidades de este producto hay en el carrito (en el modo actual)
+            const cantidad = items.filter(
+              (i) => i.id === producto.id && i.donacion === modoDonar
+            ).length;
+
+            return (
+              <ProductCard
+                key={producto.id}
+                producto={producto}
+                datosPanaderia={panaderias.find(
+                  (p) => p.nombre === producto.panaderia
+                )}
+                onAgregar={onAgregar}
+                onQuitarUno={onQuitarUno}
+                cantidad={cantidad}
+              />
+            );
+          })}          {visibles.map((producto) => {
+            // cuántas unidades de este producto hay en el carrito (en el modo actual)
+            const cantidad = items.filter(
+              (i) => i.id === producto.id && i.donacion === modoDonar
+            ).length;
+
+            return (
+              <ProductCard
+                key={producto.id}
+                producto={producto}
+                datosPanaderia={panaderias.find(
+                  (p) => p.nombre === producto.panaderia
+                )}
+                onAgregar={onAgregar}
+                onQuitarUno={onQuitarUno}
+                cantidad={cantidad}
+              />
+            );
+          })}
         </div>
       ) : (
         <p className="catalogo__vacio">
