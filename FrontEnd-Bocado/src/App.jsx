@@ -90,7 +90,7 @@ function App() {
         {vista === "caratula" && (
   <>
     <Hero onVerProductos={() => irA("catalogo")} />
-    <Carrusel />
+    <Carrusel onVerPanaderia={irAPanaderia} />
   </>
 )}
 

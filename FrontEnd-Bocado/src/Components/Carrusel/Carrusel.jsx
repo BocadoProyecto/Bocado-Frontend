@@ -1,21 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Carrusel.css";
 
-// Datos de ejemplo vacíos. Cuando tu compañera tenga las panaderías reales,
-// reemplazás esta lista (o la traés del back) con el mismo formato.
-// imagen y logo: poné la ruta o el import de la foto; si es null se muestra un color liso.
-const PANADERIAS = Array.from({ length: 5 }, (_, i) => ({
-  id: i + 1,
-  nombre: "Nombre de la panadería",
-  descripcion: "Acá va una breve descripción de la panadería y de lo que ofrece.",
-  direccion: "Calle y número, ciudad",
-  imagen: null,
-  logo: null,
-}));
+const IDS_DESTACADAS = [1, 2, 18, 4, 5];
 
 export default function Carrusel({ onVerPanaderia }) {
+  const [panaderias, setPanaderias] = useState([]);
+  const [errorServidor, setErrorServidor] = useState("");
   const [indice, setIndice] = useState(0);
-  const total = PANADERIAS.length;
+
+  // se carga una sola vez, igual que en el Catalogo
+  useEffect(() => {
+    fetch("http://localhost:3000/panaderias")
+      .then((respuesta) => respuesta.json())
+      .then((datos) => {
+  // buscamos cada panadería por su id, respetando el orden de la lista
+  const elegidas = IDS_DESTACADAS.map((id) => datos.find((p) => p.id === id));
+  setPanaderias(elegidas.filter(Boolean)); // descarta las que no existan
+})
+      .catch(() => setErrorServidor("No pudimos conectar con el servidor."));
+  }, []);
+
+  const total = panaderias.length;
 
   function siguiente() {
     setIndice((i) => (i + 1) % total);
@@ -23,6 +28,18 @@ export default function Carrusel({ onVerPanaderia }) {
 
   function anterior() {
     setIndice((i) => (i - 1 + total) % total);
+  }
+
+  // mientras carga (o si hubo error) mostramos un mensaje
+  if (total === 0) {
+    return (
+      <section className="carrusel">
+        <h2 className="carrusel__titulo">Panaderías destacadas</h2>
+        <p className="carrusel__sub">
+          {errorServidor || "Cargando panaderías..."}
+        </p>
+      </section>
+    );
   }
 
   // Siempre se dibujan 3: la de la izquierda (-1), la del medio (0) y la de la derecha (1)
@@ -55,7 +72,7 @@ export default function Carrusel({ onVerPanaderia }) {
 
         <div className="carrusel__ventana">
           {visibles.map(({ pos, idx }) => {
-            const p = PANADERIAS[idx];
+            const p = panaderias[idx];
             const esCentro = pos === 0;
 
             return (
@@ -72,35 +89,36 @@ export default function Carrusel({ onVerPanaderia }) {
                 onClick={() => clickEnTarjeta(pos)}
                 aria-hidden={esCentro ? undefined : "true"}
               >
-                <div className="carrusel__banner">
-                  {p.imagen && <img src={p.imagen} alt="" className="carrusel__foto" />}
-                  <div className="carrusel__logo">
-                    {p.logo && <img src={p.logo} alt={`Logo de ${p.nombre}`} />}
-                  </div>
+                <div className="carrusel__cabecera">
+                  <img
+                    className="carrusel__logo"
+                    src={`http://localhost:3000/Imagenes/Panaderias/${p.logo}`}
+                    alt={`Logo de ${p.nombre}`}
+                  />
+                  <h3 className="carrusel__nombre">{p.nombre}</h3>
                 </div>
 
-                <div className="carrusel__cuerpo">
-                  <h3 className="carrusel__nombre">{p.nombre}</h3>
-                  <p className="carrusel__desc">{p.descripcion}</p>
-                  <p className="carrusel__dir">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" />
-                      <circle cx="12" cy="10" r="2.5" />
-                    </svg>
-                    {p.direccion}
+                <div className="carrusel__datos">
+                  <p className="carrusel__dato">📍 {p.direccion}</p>
+                  <p className="carrusel__dato carrusel__dato--horario">
+                    🕒 {p.horario ? p.horario : "Horario no disponible"}
                   </p>
-                  <button
-                    type="button"
-                    className="btn btn--primary btn--sm carrusel__btn"
-                    tabIndex={esCentro ? 0 : -1}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onVerPanaderia && onVerPanaderia(p.id);
-                    }}
-                  >
-                    Ir a la panadería
-                  </button>
+                  <p className="carrusel__dato">
+                    📞 {p.telefono ? p.telefono : "Teléfono no disponible"}
+                  </p>
                 </div>
+
+                <button
+                  type="button"
+                  className="btn btn--primary btn--sm carrusel__btn"
+                  tabIndex={esCentro ? 0 : -1}
+                  onClick={(e) => {
+                    e.stopPropagation(); // que no se mueva el carrusel al tocar el botón
+                    onVerPanaderia(p.id);
+                  }}
+                >
+                  Ir a la panadería
+                </button>
               </article>
             );
           })}
