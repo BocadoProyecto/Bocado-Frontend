@@ -1,11 +1,13 @@
 import "./ProductCard.css";
 
 // cantidad: cuántas unidades hay en el carrito. onQuitarUno: resta una unidad.
+// onVerPanaderia: abre la página de la panadería. (CAMBIO 1: nueva prop)
 export default function ProductCard({
   producto,
   datosPanaderia,
   onAgregar,
   onQuitarUno,
+  onVerPanaderia,
   cantidad = 0,
   textoBoton = "Agregar",
 }) {
@@ -81,7 +83,20 @@ export default function ProductCard({
               alt=""
             />
           )}
-          {panaderia}
+
+          {/* CAMBIO 2: si hay onVerPanaderia, el nombre es un botón-enlace */}
+          {onVerPanaderia && datosPanaderia ? (
+            <button
+              type="button"
+              className="card__panaderia-link"
+              onClick={() => onVerPanaderia(datosPanaderia.id)}
+            >
+              {panaderia}
+            </button>
+          ) : (
+            panaderia
+          )}
+
           {datosPanaderia && (
             <span className="card__info">
               <span>📍 {datosPanaderia.direccion ?? "Sin dirección"}</span>

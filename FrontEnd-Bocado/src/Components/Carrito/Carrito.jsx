@@ -27,7 +27,15 @@ function ListaCarrito({ titulo, productos, onQuitar, donacion }) {
       <ul className="carrito__lista">
         {productos.map((producto) => (
           <li key={producto.indice} className="carrito__item">
-            <span className="carrito__emoji">{producto.emoji}</span>
+                        {producto.imagen ? (
+              <img
+                className="carrito__foto"
+                src={`http://localhost:3000/Imagenes/Productos/${producto.imagen}`}
+                alt={producto.nombre}
+              />
+            ) : (
+              <span className="carrito__emoji">{producto.emoji}</span>
+            )}
 
             <div className="carrito__info">
               <p className="carrito__panaderia">{producto.panaderia}</p>
