@@ -5,7 +5,8 @@ import FiltroDistancia from "./FiltroDistancia";
 
 
 // onVolver: vuelve a la carátula. onAgregar: se ejecuta al agregar un producto.
-export default function Catalogo({ onVolver, onAgregar, onQuitarUno, items = [], modoDonar = false }) {
+// onVerPanaderia: abre la página de una panadería. (CAMBIO 1: nueva prop)
+export default function Catalogo({ onVolver, onAgregar, onQuitarUno, onVerPanaderia, items = [], modoDonar = false }) {
 // Estado de los filtros. "todas" significa "sin filtrar".
   const [panaderia, setPanaderia] = useState("todas");
   const [panaderias, setPanaderias] = useState([]);
@@ -159,9 +160,10 @@ export default function Catalogo({ onVolver, onAgregar, onQuitarUno, items = [],
 
       {errorServidor && <p className="catalogo__vacio">{errorServidor}</p>}
 
-            {visibles.length > 0 ? (
+      {visibles.length > 0 ? (
         <div className="catalogo__grilla">
-                    {visibles.map((producto) => {
+          {/* CAMBIO 2: queda un solo map (antes estaba repetido) */}
+          {visibles.map((producto) => {
             // cuántas unidades de este producto hay en el carrito (en el modo actual)
             const cantidad = items.filter(
               (i) => i.id === producto.id && i.donacion === modoDonar
@@ -176,24 +178,7 @@ export default function Catalogo({ onVolver, onAgregar, onQuitarUno, items = [],
                 )}
                 onAgregar={onAgregar}
                 onQuitarUno={onQuitarUno}
-                cantidad={cantidad}
-              />
-            );
-          })}          {visibles.map((producto) => {
-            // cuántas unidades de este producto hay en el carrito (en el modo actual)
-            const cantidad = items.filter(
-              (i) => i.id === producto.id && i.donacion === modoDonar
-            ).length;
-
-            return (
-              <ProductCard
-                key={producto.id}
-                producto={producto}
-                datosPanaderia={panaderias.find(
-                  (p) => p.nombre === producto.panaderia
-                )}
-                onAgregar={onAgregar}
-                onQuitarUno={onQuitarUno}
+                onVerPanaderia={onVerPanaderia}
                 cantidad={cantidad}
               />
             );
