@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "./Components/navbar/Navbar";
 import Hero from "./Components/Hero/Hero";
+import Carrusel from "./Components/Carrusel/carrusel";
 import Catalogo from "./Components/Catalogo/Catalogo";
 import Carrito from "./Components/Carrito/Carrito";
 import Pago from "./Components/Pago/Pago";
@@ -78,8 +79,11 @@ function App() {
 
       <main>
         {vista === "caratula" && (
-          <Hero onVerProductos={() => irA("catalogo")} />
-        )}
+  <>
+    <Hero onVerProductos={() => irA("catalogo")} />
+    <Carrusel />
+  </>
+)}
 
                 {vista === "catalogo" && (
           <Catalogo
@@ -123,6 +127,12 @@ function App() {
 
         {vista === "terminos" && <Terminos onVolver={() => irA("caratula")} />}
       </main>
+
+
+
+
+
+
 
       <Footer
         onInicio={() => irA("caratula")}
