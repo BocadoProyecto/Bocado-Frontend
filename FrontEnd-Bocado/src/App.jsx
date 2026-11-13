@@ -9,6 +9,7 @@ import { Faq } from "./Components/faq/faq";
 import Terminos from "./Components/terminos/Terminos";
 import Footer from "./Components/footer/Footer";
 import AnimacionIntro from "./Components/animacionIntro/AnimacionIntro";
+import AboutUs from "./Components/aboutUs/AboutUs";
 
 import "./App.css";
 
@@ -74,6 +75,7 @@ function App() {
         onInicio={() => irA("caratula")}
         onExplorar={() => irA("catalogo")}
         onCarrito={() => irA("carrito")}
+        onNosotros={() => irA("nosotros")}
       />
 
       <main>
@@ -122,6 +124,14 @@ function App() {
         {vista === "faq" && <Faq onVolver={() => irA("caratula")} />}
 
         {vista === "terminos" && <Terminos onVolver={() => irA("caratula")} />}
+
+        {vista === "nosotros" && (
+          <AboutUs
+            onVolver={() => irA("caratula")}
+            onExplorar={() => irA("catalogo")}
+            onFaq={() => irA("faq")}
+          />
+        )}
       </main>
 
       <Footer
@@ -130,6 +140,7 @@ function App() {
         onCarrito={() => irA("carrito")}
         onFaq={() => irA("faq")}
         onTerminos={() => irA("terminos")}
+        onNosotros={() => irA("nosotros")}
       />
     </>
   );
