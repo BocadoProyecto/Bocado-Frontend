@@ -33,6 +33,23 @@ function App() {
     nuevaLista.push({ ...producto, donacion: esDonacion }); // le agregamos el producto
     setItems(nuevaLista); // guardamos la lista nueva
   }
+    function quitarUnoDelCarrito(id, esDonacion = modoDonar) {
+    // busca la última unidad de ese producto, del mismo tipo (compra o donación)
+    let indice = -1;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].id === id && items[i].donacion === esDonacion) {
+        indice = i;
+      }
+    }
+
+    // si no estaba en el carrito, no hace nada
+    if (indice === -1) {
+      return;
+    }
+
+    const nuevaLista = items.filter((producto, i) => i !== indice);
+    setItems(nuevaLista);
+  }
 
   function quitarDelCarrito(indice) {
     // resta el prod y deja el resto
@@ -64,11 +81,15 @@ function App() {
           <Hero onVerProductos={() => irA("catalogo")} />
         )}
 
-        {vista === "catalogo" && (
+                {vista === "catalogo" && (
           <Catalogo
             onVolver={() => irA("caratula")}
             onAgregar={agregarAlCarrito}
+            onQuitarUno={quitarUnoDelCarrito}
+            items={items}
+            modoDonar={modoDonar}
           />
+        
         )}
 
         {vista === "carrito" && (
