@@ -199,3 +199,10 @@
   color: #9a6a00;
   font-weight: 600;
 }
+.carrito__foto {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+}

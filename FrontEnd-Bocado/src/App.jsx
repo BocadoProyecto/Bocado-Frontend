@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "./Components/navbar/Navbar";
 import Hero from "./Components/Hero/Hero";
 import Catalogo from "./Components/Catalogo/Catalogo";
+import Panaderia from "./Components/Panaderias/Panaderia";
 import Carrito from "./Components/Carrito/Carrito";
 import Pago from "./Components/Pago/Pago";
 import Donar from "./Components/Donar/Donar";
@@ -23,9 +24,17 @@ function App() {
 
   const [mostrarIntro, setMostrarIntro] = useState(true);
 
+  // id de la panadería que se está viendo
+  const [panaderiaId, setPanaderiaId] = useState(null);
+
   function irA(nuevaVista) {
     setVista(nuevaVista);
     window.scrollTo(0, 0); // te lleva para arriba
+  }
+
+  function irAPanaderia(id) {
+    setPanaderiaId(id); // guardamos cuál panadería
+    irA("panaderia"); // y cambiamos de pantalla
   }
 
   function agregarAlCarrito(producto, esDonacion = modoDonar) {
@@ -81,15 +90,26 @@ function App() {
           <Hero onVerProductos={() => irA("catalogo")} />
         )}
 
-                {vista === "catalogo" && (
+        {vista === "catalogo" && (
           <Catalogo
             onVolver={() => irA("caratula")}
+            onAgregar={agregarAlCarrito}
+            onQuitarUno={quitarUnoDelCarrito}
+            onVerPanaderia={irAPanaderia}
+            items={items}
+            modoDonar={modoDonar}
+          />
+        )}
+
+        {vista === "panaderia" && (
+          <Panaderia
+            panaderiaId={panaderiaId}
+            onVolver={() => irA("catalogo")}
             onAgregar={agregarAlCarrito}
             onQuitarUno={quitarUnoDelCarrito}
             items={items}
             modoDonar={modoDonar}
           />
-        
         )}
 
         {vista === "carrito" && (
