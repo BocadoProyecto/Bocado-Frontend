@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Navbar from "./Components/navbar/Navbar";
 import Hero from "./Components/Hero/Hero";
-import Carrusel from "./Components/Carrusel/carrusel";
+import Carrusel from "./Components/Carrusel/Carrusel";
 import Catalogo from "./Components/Catalogo/Catalogo";
 import Panaderia from "./Components/Panaderias/Panaderia";
 import Carrito from "./Components/Carrito/Carrito";
@@ -12,6 +12,8 @@ import Terminos from "./Components/terminos/Terminos";
 import Footer from "./Components/footer/Footer";
 import AnimacionIntro from "./Components/animacionIntro/AnimacionIntro";
 import AboutUs from "./Components/aboutUs/AboutUs";
+import ParallaxBocado from "./Components/parallaxBocado/ParallaxBocado";
+import Panaderias from "./pages/panaderias/Panaderias";
 
 import "./App.css";
 
@@ -90,11 +92,16 @@ function App() {
 
       <main>
         {vista === "caratula" && (
-  <>
-    <Hero onVerProductos={() => irA("catalogo")} />
-    <Carrusel />
-  </>
-)}
+          <>
+            <Hero onVerProductos={() => irA("catalogo")} />
+            <Carrusel />
+            <ParallaxBocado
+              onVerProductos={() => irA("catalogo")}
+              onPanaderias={() => irA("panaderias")}
+            />
+            <AboutUs compacto onVerMas={() => irA("nosotros")} />
+          </>
+        )}
 
         {vista === "catalogo" && (
           <Catalogo
@@ -104,6 +111,13 @@ function App() {
             onVerPanaderia={irAPanaderia}
             items={items}
             modoDonar={modoDonar}
+          />
+        )}
+
+        {vista === "panaderias" && (
+          <Panaderias
+            onVolver={() => irA("caratula")}
+            onVerPanaderia={irAPanaderia}
           />
         )}
 
@@ -176,4 +190,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;

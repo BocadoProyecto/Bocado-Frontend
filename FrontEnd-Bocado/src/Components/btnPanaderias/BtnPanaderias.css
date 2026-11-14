@@ -1,0 +1,27 @@
+.btn-panaderias {
+  background: transparent;
+  border-color: var(--tinta);
+  color: var(--tinta);
+  font-weight: 600;
+}
+.btn-panaderias:hover {
+  background: var(--tinta);
+  color: #fff;
+}
+
+.btn-panaderias--claro {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+.btn-panaderias--claro:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.btn-panaderias svg {
+  transition: transform 0.2s ease;
+}
+.btn-panaderias:hover svg {
+  transform: translateY(-2px);
+}

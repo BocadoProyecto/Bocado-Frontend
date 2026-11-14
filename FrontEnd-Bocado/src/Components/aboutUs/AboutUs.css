@@ -4,6 +4,13 @@
   padding: 24px 32px 80px;
 }
 
+.about--compacto {
+  padding-top: 0;
+}
+.about--compacto .about__encabezado {
+  margin-bottom: 40px;
+}
+
 .about__volver {
   background: none;
   border: none;

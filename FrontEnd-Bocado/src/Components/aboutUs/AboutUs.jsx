@@ -64,10 +64,19 @@ function iniciales(nombre) {
     .join("");
 }
 
-export default function AboutUs({ onVolver, onExplorar, onFaq }) {
+export default function AboutUs({
+  onVolver,
+  onExplorar,
+  onFaq,
+  onVerMas,
+  compacto = false,
+}) {
   return (
-    <section className="about">
-      {onVolver && (
+    <section
+      id="sobre-nosotros"
+      className={compacto ? "about about--compacto" : "about"}
+    >
+      {onVolver && !compacto && (
         <button className="about__volver" onClick={onVolver}>
           ← Volver
         </button>
@@ -75,11 +84,13 @@ export default function AboutUs({ onVolver, onExplorar, onFaq }) {
 
       <header className="about__encabezado">
         <span className="chip">Sobre nosotros</span>
-        <h2 className="about__titulo">Un clic, dos mesas.</h2>
+        <h2 className="about__titulo">
+          {compacto ? "Por qué existe Bocado" : "Un clic, dos mesas."}
+        </h2>
         <p className="about__bajada">
-          Bocado conecta a las panaderías que tienen excedentes con quienes los
-          aprovechan: personas que compran más barato y comedores que reciben
-          donaciones.
+          {compacto
+            ? "En Uruguay se tira comida mientras hay hogares que no llegan a comer bien. Bocado nace para unir esas dos realidades."
+            : "Bocado conecta a las panaderías que tienen excedentes con quienes los aprovechan: personas que compran más barato y comedores que reciben donaciones."}
         </p>
       </header>
 
@@ -97,37 +108,41 @@ export default function AboutUs({ onVolver, onExplorar, onFaq }) {
         </div>
       </div>
 
-      <div className="about__bloque">
-        <h3 className="about__subtitulo">Qué hacemos</h3>
-        <div className="about__pilares">
-          {pilares.map((pilar) => (
-            <article key={pilar.titulo} className="about__pilar">
-              <span className="about__icono" aria-hidden="true">
-                {pilar.icono}
-              </span>
-              <h4>{pilar.titulo}</h4>
-              <p>{pilar.texto}</p>
-            </article>
-          ))}
-        </div>
-      </div>
+      {!compacto && (
+        <>
+          <div className="about__bloque">
+            <h3 className="about__subtitulo">Qué hacemos</h3>
+            <div className="about__pilares">
+              {pilares.map((pilar) => (
+                <article key={pilar.titulo} className="about__pilar">
+                  <span className="about__icono" aria-hidden="true">
+                    {pilar.icono}
+                  </span>
+                  <h4>{pilar.titulo}</h4>
+                  <p>{pilar.texto}</p>
+                </article>
+              ))}
+            </div>
+          </div>
 
-      <div className="about__diferencia">
-        <h3>Qué nos hace distintos</h3>
-        <p>
-          Otras plataformas venden excedentes. Bocado además te deja{" "}
-          <strong>donar mientras comprás</strong>, o usar la plataforma{" "}
-          <strong>solo para donar</strong>. Porque una vida digna empieza por
-          poder sentarse a comer.
-        </p>
-      </div>
+          <div className="about__diferencia">
+            <h3>Qué nos hace distintos</h3>
+            <p>
+              Otras plataformas venden excedentes. Bocado además te deja{" "}
+              <strong>donar mientras comprás</strong>, o usar la plataforma{" "}
+              <strong>solo para donar</strong>. Porque una vida digna empieza
+              por poder sentarse a comer.
+            </p>
+          </div>
 
-      <div className="about__bloque about__historia">
-        <h3 className="about__subtitulo">Nuestra historia</h3>
-        {historia.map((parrafo, i) => (
-          <p key={i}>{parrafo}</p>
-        ))}
-      </div>
+          <div className="about__bloque about__historia">
+            <h3 className="about__subtitulo">Nuestra historia</h3>
+            {historia.map((parrafo, i) => (
+              <p key={i}>{parrafo}</p>
+            ))}
+          </div>
+        </>
+      )}
 
       <div className="about__bloque">
         <h3 className="about__subtitulo">El equipo</h3>
@@ -143,20 +158,30 @@ export default function AboutUs({ onVolver, onExplorar, onFaq }) {
         </ul>
       </div>
 
-      <p className="about__ley">
-        Desde 2025, la <strong>Ley N.º 20.177</strong>, reglamentada por el
-        Decreto 179/025, fomenta la donación de alimentos y da beneficios
-        fiscales a los comercios que donan.
-      </p>
+      {compacto ? (
+        <div className="about__acciones">
+          <button className="btn btn--outline" onClick={onVerMas}>
+            Conocé nuestra historia
+          </button>
+        </div>
+      ) : (
+        <>
+          <p className="about__ley">
+            Desde 2025, la <strong>Ley N.º 20.177</strong>, reglamentada por el
+            Decreto 179/025, fomenta la donación de alimentos y da beneficios
+            fiscales a los comercios que donan.
+          </p>
 
-      <div className="about__acciones">
-        <button className="btn btn--primary" onClick={onExplorar}>
-          Ver productos
-        </button>
-        <button className="btn btn--outline" onClick={onFaq}>
-          Preguntas frecuentes
-        </button>
-      </div>
+          <div className="about__acciones">
+            <button className="btn btn--primary" onClick={onExplorar}>
+              Ver productos
+            </button>
+            <button className="btn btn--outline" onClick={onFaq}>
+              Preguntas frecuentes
+            </button>
+          </div>
+        </>
+      )}
     </section>
   );
 }
