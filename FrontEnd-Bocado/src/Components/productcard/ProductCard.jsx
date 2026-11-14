@@ -1,8 +1,16 @@
 import "./ProductCard.css";
 
-
-// Recibe un prod y solo se ajecuta al agregar
-export default function ProductCard({ producto, datosPanaderia, onAgregar, textoBoton = "Agregar" }) {
+// cantidad: cuántas unidades hay en el carrito. onQuitarUno: resta una unidad.
+// onVerPanaderia: abre la página de la panadería. (CAMBIO 1: nueva prop)
+export default function ProductCard({
+  producto,
+  datosPanaderia,
+  onAgregar,
+  onQuitarUno,
+  onVerPanaderia,
+  cantidad = 0,
+  textoBoton = "Agregar",
+}) {
   const {
     nombre,
     panaderia,
@@ -16,8 +24,11 @@ export default function ProductCard({ producto, datosPanaderia, onAgregar, texto
   // muestra el porcentaje de dto
   const descuento = Math.round((1 - precio / precioOriginal) * 100);
 
+  // si ya llegó al stock, no se puede sumar más
+  const llegoAlMaximo = cantidad >= disponibles;
+
   return (
-    <article className="card">
+    <article className={cantidad > 0 ? "card card--seleccionada" : "card"}>
       <div className="card__imagen">
         {imagen && (
           <img
@@ -27,6 +38,40 @@ export default function ProductCard({ producto, datosPanaderia, onAgregar, texto
           />
         )}
         <span className="card__descuento">-{descuento}%</span>
+
+        {/* Control de cantidad sobre la foto (solo si la pantalla lo pide) */}
+        {onQuitarUno &&
+          (cantidad === 0 ? (
+            <button
+              type="button"
+              className="card__mas"
+              aria-label={`Agregar ${nombre}`}
+              onClick={() => onAgregar && onAgregar(producto)}
+            >
+              +
+            </button>
+          ) : (
+            <div className="card__contador">
+              <button
+                type="button"
+                className="card__contador-btn"
+                aria-label={`Quitar una unidad de ${nombre}`}
+                onClick={() => onQuitarUno(producto.id)}
+              >
+                −
+              </button>
+              <span className="card__contador-numero">{cantidad}</span>
+              <button
+                type="button"
+                className="card__contador-btn"
+                aria-label={`Agregar una unidad de ${nombre}`}
+                disabled={llegoAlMaximo}
+                onClick={() => onAgregar && onAgregar(producto)}
+              >
+                +
+              </button>
+            </div>
+          ))}
       </div>
 
       <div className="card__cuerpo">
@@ -38,7 +83,20 @@ export default function ProductCard({ producto, datosPanaderia, onAgregar, texto
               alt=""
             />
           )}
-          {panaderia}
+
+          {/* CAMBIO 2: si hay onVerPanaderia, el nombre es un botón-enlace */}
+          {onVerPanaderia && datosPanaderia ? (
+            <button
+              type="button"
+              className="card__panaderia-link"
+              onClick={() => onVerPanaderia(datosPanaderia.id)}
+            >
+              {panaderia}
+            </button>
+          ) : (
+            panaderia
+          )}
+
           {datosPanaderia && (
             <span className="card__info">
               <span>📍 {datosPanaderia.direccion ?? "Sin dirección"}</span>
@@ -61,13 +119,16 @@ export default function ProductCard({ producto, datosPanaderia, onAgregar, texto
             : `Quedan ${disponibles} unidades`}
         </p>
 
-        <button
-          type="button"
-          className="btn btn--primary btn--sm card__boton"
-          onClick={() => onAgregar && onAgregar(producto)}
-        >
-          {textoBoton}
-        </button>
+        {/* Botón de siempre para las pantallas sin contador (ej. Donar) */}
+        {!onQuitarUno && (
+          <button
+            type="button"
+            className="btn btn--primary btn--sm card__boton"
+            onClick={() => onAgregar && onAgregar(producto)}
+          >
+            {textoBoton}
+          </button>
+        )}
       </div>
     </article>
   );

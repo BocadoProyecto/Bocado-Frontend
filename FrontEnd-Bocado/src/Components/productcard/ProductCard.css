@@ -112,3 +112,103 @@
 .card__cuerpo .card__disponibles {
   margin-bottom: 12px;
 }
+
+/* ===== NUEVO: tarjeta seleccionada (tiene unidades en el carrito) ===== */
+.card--seleccionada,
+.card--seleccionada:hover {
+  background: #fff3e8;
+  box-shadow: 0 0 0 2px var(--orange);
+}
+
+/* ===== NUEVO: control de cantidad sobre la foto ===== */
+.card__mas,
+.card__contador {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(58, 54, 49, 0.25);
+}
+
+/* Botón redondo "+" (cantidad 0) */
+.card__mas {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  color: var(--orange);
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.card__mas:hover {
+  background: var(--orange);
+  color: #fff;
+}
+
+/* Pastilla "− N +" (cantidad 1 o más) */
+.card__contador {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+}
+
+.card__contador-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--orange);
+  font-family: var(--font-body);
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.card__contador-btn:hover:not(:disabled) {
+  background: var(--orange);
+  color: #fff;
+}
+
+.card__contador-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.card__mas:focus-visible,
+.card__contador-btn:focus-visible {
+  outline: 3px solid var(--tinta);
+  outline-offset: 2px;
+}
+
+.card__contador-numero {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.card__panaderia-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.card__panaderia-link:hover {
+  color: #a0522a;
+}

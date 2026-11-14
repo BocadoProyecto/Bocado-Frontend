@@ -1,0 +1,249 @@
+.about {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 32px 80px;
+}
+
+.about--compacto {
+  padding-top: 0;
+}
+.about--compacto .about__encabezado {
+  margin-bottom: 40px;
+}
+
+.about__volver {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 14px;
+}
+.about__volver:hover {
+  color: var(--orange);
+}
+
+.about__encabezado {
+  max-width: 680px;
+  margin-bottom: 56px;
+}
+
+.about__titulo {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--tinta);
+  font-size: clamp(2.4rem, 4.6vw, 3.75rem);
+  line-height: 1.05;
+  margin-bottom: 18px;
+}
+
+.about__bajada {
+  color: var(--ink-soft);
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+.about__bloque {
+  margin-bottom: 56px;
+}
+
+.about__subtitulo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--tinta);
+  margin-bottom: 20px;
+}
+
+.about__cifras,
+.about__pilares {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.about__cifra {
+  padding: 24px;
+  background: #fffaf2;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+
+.about__numero {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--orange);
+}
+
+.about__unidad {
+  margin-top: 4px;
+  font-weight: 700;
+  color: var(--tinta);
+}
+
+.about__cifra-texto {
+  margin-top: 10px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.about__fuente {
+  margin-top: 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.about__pilar {
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--bg-chip);
+}
+
+.about__icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: #fffaf2;
+  font-size: 1.5rem;
+}
+
+.about__pilar h4 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--tinta);
+  margin-bottom: 6px;
+}
+
+.about__pilar p {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.about__diferencia {
+  margin-bottom: 56px;
+  padding: 32px;
+  border-radius: 24px;
+  background: #fff8d6;
+  border: 1px dashed #e0b000;
+}
+
+.about__diferencia h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: var(--tinta);
+  margin-bottom: 10px;
+}
+
+.about__diferencia p {
+  max-width: 720px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.about__diferencia strong {
+  color: #7a5400;
+}
+
+.about__historia p {
+  max-width: 760px;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+.about__historia p + p {
+  margin-top: 14px;
+}
+
+.about__equipo {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.about__persona {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 12px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #fffaf2;
+  text-align: center;
+  font-weight: 600;
+  color: var(--tinta);
+}
+
+.about__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+}
+
+.about__ley {
+  margin-bottom: 32px;
+  padding: 12px 16px;
+  background: var(--naranja-suave);
+  border-left: 4px solid var(--orange);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.about__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+body.modo-donar .about__cifra,
+body.modo-donar .about__persona {
+  background: #fffdf3;
+}
+body.modo-donar .about__pilar {
+  background: #fff6cc;
+}
+body.modo-donar .about__avatar {
+  background: #f5c518;
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .about__cifras,
+  .about__pilares {
+    grid-template-columns: 1fr;
+  }
+  .about__equipo {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .about {
+    padding: 16px 18px 56px;
+  }
+  .about__diferencia {
+    padding: 24px;
+  }
+  .about__equipo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
