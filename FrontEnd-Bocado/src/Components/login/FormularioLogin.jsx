@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./FormularioLogin.css";
 
-function FormularioLogin({ tipo, onExito }) {
+function FormularioLogin({ tipo, onExito, onIrARegistro }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -12,7 +12,7 @@ function FormularioLogin({ tipo, onExito }) {
     ? "Ingresá como panadería"
     : "Ingresá como cliente";
   const subtitulo = esPanaderia
-    ? "Publicá tus excedentes del día y sumate como Panadería solidaria."
+    ? "Publicá tus excedentes del día y sumate como panadería solidaria."
     : "Comprá excedentes a mitad de precio o doná a un comedor.";
 
   function manejarEnvio(e) {
@@ -70,6 +70,12 @@ function FormularioLogin({ tipo, onExito }) {
 
         <button type="submit">Ingresar</button>
       </form>
+      <p className="login-pie">
+        ¿No tenés cuenta?{" "}
+        <button type="button" className="login-cambiar" onClick={onIrARegistro}>
+          Creá una acá
+        </button>
+      </p>
     </section>
   );
 }

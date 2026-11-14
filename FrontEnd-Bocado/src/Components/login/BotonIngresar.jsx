@@ -1,16 +1,24 @@
 import { useState, useEffect } from "react";
 import FormularioLogin from "./FormularioLogin";
+import "./FormularioRegistro.css";
+import FormularioRegistro from "./FormularioRegistro";
 import "./BotonIngresar.css";
 
 function BotonIngresar() {
   const [abierto, setAbierto] = useState(false);
   const [tipo, setTipo] = useState("cliente");
+  const [modo, setModo] = useState("login");
+
+  function cerrar() {
+    setAbierto(false);
+    setModo("login");
+  }
 
   useEffect(() => {
     if (!abierto) return;
 
     function cerrarConEsc(e) {
-      if (e.key === "Escape") setAbierto(false);
+      if (e.key === "Escape") cerrar();
     }
 
     document.addEventListener("keydown", cerrarConEsc);
@@ -24,9 +32,9 @@ function BotonIngresar() {
       </button>
 
       {abierto && (
-        <div className="modal-fondo" onClick={() => setAbierto(false)}>
+        <div className="modal-fondo" onClick={cerrar}>
           <div
-            className="modal"
+            className={modo === "registro" ? "modal modal--ancho" : "modal"}
             role="dialog"
             aria-modal="true"
             onClick={(e) => e.stopPropagation()}
@@ -34,7 +42,7 @@ function BotonIngresar() {
             <button
               className="modal-cerrar"
               aria-label="Cerrar"
-              onClick={() => setAbierto(false)}
+              onClick={cerrar}
             >
               ✕
             </button>
@@ -54,7 +62,19 @@ function BotonIngresar() {
               </button>
             </div>
 
-            <FormularioLogin tipo={tipo} onExito={() => setAbierto(false)} />
+            {modo === "login" ? (
+              <FormularioLogin
+                tipo={tipo}
+                onExito={cerrar}
+                onIrARegistro={() => setModo("registro")}
+              />
+            ) : (
+              <FormularioRegistro
+              tipo={tipo}
+              onIrALogin={() => setModo("login")}
+                onExito={cerrar}
+            />
+            )}
           </div>
         </div>
       )}

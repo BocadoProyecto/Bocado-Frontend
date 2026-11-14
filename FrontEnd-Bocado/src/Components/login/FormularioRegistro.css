@@ -1,0 +1,94 @@
+.registro-etiqueta {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--naranja);
+  }
+  
+  .registro-seccion {
+    margin: 16px 0 0;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--carbon);
+  }
+  
+  .registro-fila {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  
+  .registro-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .registro-ayuda {
+    margin: 0;
+    font-size: 13px;
+    color: var(--gris);
+  }
+  
+  .registro-opcional {
+    font-weight: 500;
+    color: var(--gris);
+  }
+  
+  
+  .registro-telefono {
+    display: flex;
+    height: 46px;
+    border: 1.5px solid var(--borde);
+    border-radius: 12px;
+    background: var(--blanco);
+    overflow: hidden;
+  }
+  
+  .registro-telefono:focus-within {
+    border-color: var(--naranja);
+    box-shadow: 0 0 0 3px var(--naranja-suave);
+  }
+  
+  .registro-prefijo {
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    background: var(--crema);
+    border-right: 1.5px solid var(--borde);
+    font-weight: 600;
+    color: var(--gris);
+  }
+  
+  .login-form .registro-telefono input {
+    flex: 1;
+    min-width: 0;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+  }
+  
+  .login-form .registro-telefono input:focus {
+    box-shadow: none;
+  }
+  
+
+  .login-form textarea {
+    padding: 12px 16px;
+    border: 1.5px solid var(--borde);
+    border-radius: 12px;
+    background: var(--blanco);
+    color: var(--carbon);
+    font: inherit;
+    font-size: 15px;
+    resize: vertical;
+  }
+  
+  .login-form textarea:focus {
+    outline: none;
+    border-color: var(--naranja);
+    box-shadow: 0 0 0 3px var(--naranja-suave);
+  }
+  
