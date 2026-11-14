@@ -7,6 +7,7 @@ export default function Footer({
   onCarrito,
   onFaq,
   onTerminos,
+  onNosotros,
 }) {
   function manejar(e, accion) {
     e.preventDefault();
@@ -20,6 +21,7 @@ export default function Footer({
         { texto: "Inicio", accion: onInicio },
         { texto: "Explorar productos", accion: onExplorar },
         { texto: "Mi carrito", accion: onCarrito },
+        { texto: "Sobre nosotros", accion: onNosotros },
       ],
     },
     {

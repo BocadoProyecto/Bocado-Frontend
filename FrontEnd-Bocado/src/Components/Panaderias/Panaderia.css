@@ -1,0 +1,42 @@
+.panaderia {
+  padding: 2rem 1.5rem;
+}
+
+.panaderia__portada {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: #fffbf5;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 1rem 0 2rem;
+}
+
+.panaderia__logo {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.panaderia__nombre {
+  color: #1b3b3c;
+  margin: 0 0 0.5rem;
+}
+
+.panaderia__dato {
+  color: #1b3b3c;
+  margin: 0.25rem 0;
+}
+
+.panaderia__subtitulo {
+  color: #a0522a;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+  .panaderia__portada {
+    flex-direction: column;
+    text-align: center;
+  }
+}

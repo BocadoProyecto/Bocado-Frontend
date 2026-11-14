@@ -1,19 +1,36 @@
 import { useState } from "react";
+import ModalPago from "./ModalPago";
 import "./Pago.css";
+
+// El método que abre el pop up de Stripe
+const METODO_TARJETA = "Tarjeta de crédito o débito";
 
 // Pagos para elegir
 const metodos = [
-  "Tarjeta de crédito o débito",
+  METODO_TARJETA,
   "Mercado Pago",
   "Transferencia bancaria",
   "Efectivo al retirar",
 ];
+
+function sumarPrecios(lista) {
+  let suma = 0;
+  lista.forEach((producto) => {
+    suma = suma + producto.precio;
+  });
+  return suma;
+}
 
 export default function Pago({ items, onVolver, onVaciar, onDonar, onSeguir }) {
   // metodo elegido, aun no se hizo
   const [metodo, setMetodo] = useState("");
   // confirmado: solo si confirmo el pago
   const [confirmado, setConfirmado] = useState(false);
+  // si el pop up de pago con tarjeta está abierto
+  const [mostrarModal, setMostrarModal] = useState(false);
+  // número de referencia que devuelve Stripe (solo con tarjeta)
+  const [idPago, setIdPago] = useState("");
+  const [donado, setDonado] = useState(0);
 
   // Total a pagar
   let total = 0;
@@ -21,9 +38,30 @@ export default function Pago({ items, onVolver, onVaciar, onDonar, onSeguir }) {
     total = total + producto.precio;
   });
 
-  function confirmar() {
+  const personales = items.filter((producto) => !producto.donacion);
+  const donaciones = items.filter((producto) => producto.donacion);
+
+  // Deja la compra como terminada y vacía el carrito
+  function finalizarCompra() {
+    setDonado(sumarPrecios(donaciones));
     setConfirmado(true);
     onVaciar();
+  }
+
+  // Botón "Pagar": con tarjeta abre el pop up, con los otros métodos confirma directo
+  function confirmar() {
+    if (metodo === METODO_TARJETA) {
+      setMostrarModal(true);
+      return;
+    }
+    finalizarCompra();
+  }
+
+  // Stripe cobró bien: cerramos el pop up y mostramos el gracias
+  function pagoExitoso(idDelPago) {
+    setIdPago(idDelPago);
+    setMostrarModal(false);
+    finalizarCompra();
   }
 
   // Para donar
@@ -47,6 +85,13 @@ export default function Pago({ items, onVolver, onVaciar, onDonar, onSeguir }) {
         <h2 className="pago__titulo">¡Compra confirmada! 🎉</h2>
         <div className="pago__caja">
           <p>Pagaste con: {metodo}</p>
+          {idPago !== "" && <p>Referencia del pago: {idPago}</p>}
+          {donado > 0 && (
+            <p className="pago__gracias-donar">
+              💛 Donaste ${donado}. Bocado se encarga de que llegue a un
+              comedor.
+            </p>
+          )}
           <p>Gracias por ayudar a que no se desperdicie comida.</p>
           <button
             type="button"
@@ -89,12 +134,37 @@ export default function Pago({ items, onVolver, onVaciar, onDonar, onSeguir }) {
 
         <aside className="pago__caja">
           <h3>Tu pedido</h3>
-          {items.map((producto, indice) => (
-            <p key={indice} className="pago__fila">
-              <span>{producto.nombre}</span>
-              <span>${producto.precio}</span>
-            </p>
-          ))}
+          {personales.length > 0 && (
+            <div className="pago__grupo">
+              <h4>Para vos</h4>
+              {personales.map((producto, indice) => (
+                <p key={indice} className="pago__fila">
+                  <span>{producto.nombre}</span>
+                  <span>${producto.precio}</span>
+                </p>
+              ))}
+              <p className="pago__fila pago__subtotal">
+                <span>Subtotal</span>
+                <span>${sumarPrecios(personales)}</span>
+              </p>
+            </div>
+          )}
+
+          {donaciones.length > 0 && (
+            <div className="pago__grupo pago__grupo--donar">
+              <h4>Para donar 💛</h4>
+              {donaciones.map((producto, indice) => (
+                <p key={indice} className="pago__fila">
+                  <span>{producto.nombre}</span>
+                  <span>${producto.precio}</span>
+                </p>
+              ))}
+              <p className="pago__fila pago__subtotal">
+                <span>Subtotal</span>
+                <span>${sumarPrecios(donaciones)}</span>
+              </p>
+            </div>
+          )}
           <p className="pago__fila pago__total">
             <span>Total</span>
             <span>${total}</span>
@@ -106,12 +176,21 @@ export default function Pago({ items, onVolver, onVaciar, onDonar, onSeguir }) {
             onClick={confirmar}
             disabled={metodo === "" || items.length === 0}
           >
-            Confirmar pago
+            Pagar
           </button>
 
           {cajaDonar}
         </aside>
       </div>
+
+      {mostrarModal && (
+        <ModalPago
+          items={items}
+          total={total}
+          onCerrar={() => setMostrarModal(false)}
+          onExito={pagoExitoso}
+        />
+      )}
     </section>
   );
-}
+}
