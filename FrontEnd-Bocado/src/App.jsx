@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import Navbar from "./Components/navbar/Navbar";
 import Hero from "./Components/Hero/Hero";
@@ -94,7 +95,7 @@ function App() {
         {vista === "caratula" && (
           <>
             <Hero onVerProductos={() => irA("catalogo")} />
-            <Carrusel />
+<Carrusel onVerPanaderia={irAPanaderia} />
             <ParallaxBocado
               onVerProductos={() => irA("catalogo")}
               onPanaderias={() => irA("panaderias")}
@@ -190,4 +191,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;
