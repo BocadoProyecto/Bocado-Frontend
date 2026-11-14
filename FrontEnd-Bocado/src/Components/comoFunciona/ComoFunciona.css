@@ -1,0 +1,87 @@
+
+.como-funciona {
+  --cf-fondo: #fffcf5;
+  --cf-tarjeta: #f4efe7;
+  --cf-titulo: #1d3b3a;
+  --cf-acento: #b05a26;
+  --cf-texto: #4a4a4a;
+
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 80px 32px;
+  background-color: var(--cf-fondo);
+  text-align: left;
+}
+
+
+.como-funciona__etiqueta {
+  margin-bottom: 12px;
+  color: var(--cf-acento);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.como-funciona__titulo {
+  margin-bottom: 48px;
+  color: var(--cf-titulo);
+  font-family: var(--font-display);
+  font-weight: 400; 
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  line-height: 1.1;
+}
+
+
+.como-funciona__pasos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  list-style: none; 
+}
+
+.como-funciona__paso {
+  padding: 32px 28px;
+  background-color: var(--cf-tarjeta);
+  border-radius: 24px;
+}
+
+.como-funciona__numero {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--cf-acento);
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.como-funciona__paso-titulo {
+  margin-bottom: 12px;
+  color: var(--cf-titulo);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.como-funciona__texto {
+  color: var(--cf-texto);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+
+@media (max-width: 800px) {
+  .como-funciona {
+    padding: 56px 16px;
+  }
+
+  .como-funciona__pasos {
+    grid-template-columns: 1fr;
+  }
+}
+
+.about .como-funciona {
+  max-width: none;
+  margin: 0 0 80px;
+  padding: 0;
+  background-color: transparent;
+}

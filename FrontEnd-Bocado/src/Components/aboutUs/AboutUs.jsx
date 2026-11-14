@@ -1,4 +1,5 @@
 import "./AboutUs.css";
+import ComoFunciona from "../comoFunciona/ComoFunciona";
 
 const cifras = [
   {
@@ -144,6 +145,7 @@ export default function AboutUs({
         </>
       )}
 
+      <ComoFunciona />
       <div className="about__bloque">
         <h3 className="about__subtitulo">El equipo</h3>
         <ul className="about__equipo">
