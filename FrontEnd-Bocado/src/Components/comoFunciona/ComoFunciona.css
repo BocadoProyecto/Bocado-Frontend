@@ -78,3 +78,10 @@
     grid-template-columns: 1fr;
   }
 }
+
+.about .como-funciona {
+  max-width: none;
+  margin: 0 0 80px;
+  padding: 0;
+  background-color: transparent;
+}
