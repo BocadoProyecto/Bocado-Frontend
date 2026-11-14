@@ -1,7 +1,8 @@
+
 import { useState } from "react";
 import Navbar from "./Components/navbar/Navbar";
 import Hero from "./Components/Hero/Hero";
-import Carrusel from "./Components/Carrusel/carrusel";
+import Carrusel from "./Components/Carrusel/Carrusel";
 import Catalogo from "./Components/Catalogo/Catalogo";
 import Panaderia from "./Components/Panaderias/Panaderia";
 import Carrito from "./Components/Carrito/Carrito";
@@ -11,6 +12,9 @@ import { Faq } from "./Components/faq/faq";
 import Terminos from "./Components/terminos/Terminos";
 import Footer from "./Components/footer/Footer";
 import AnimacionIntro from "./Components/animacionIntro/AnimacionIntro";
+import AboutUs from "./Components/aboutUs/AboutUs";
+import ParallaxBocado from "./Components/parallaxBocado/ParallaxBocado";
+import Panaderias from "./pages/panaderias/Panaderias";
 
 import "./App.css";
 
@@ -84,15 +88,21 @@ function App() {
         onInicio={() => irA("caratula")}
         onExplorar={() => irA("catalogo")}
         onCarrito={() => irA("carrito")}
+        onNosotros={() => irA("nosotros")}
       />
 
       <main>
         {vista === "caratula" && (
-  <>
-    <Hero onVerProductos={() => irA("catalogo")} />
-    <Carrusel onVerPanaderia={irAPanaderia} />
-  </>
-)}
+          <>
+            <Hero onVerProductos={() => irA("catalogo")} />
+<Carrusel onVerPanaderia={irAPanaderia} />
+            <ParallaxBocado
+              onVerProductos={() => irA("catalogo")}
+              onPanaderias={() => irA("panaderias")}
+            />
+            <AboutUs compacto onVerMas={() => irA("nosotros")} />
+          </>
+        )}
 
         {vista === "catalogo" && (
           <Catalogo
@@ -102,6 +112,13 @@ function App() {
             onVerPanaderia={irAPanaderia}
             items={items}
             modoDonar={modoDonar}
+          />
+        )}
+
+        {vista === "panaderias" && (
+          <Panaderias
+            onVolver={() => irA("caratula")}
+            onVerPanaderia={irAPanaderia}
           />
         )}
 
@@ -146,6 +163,14 @@ function App() {
         {vista === "faq" && <Faq onVolver={() => irA("caratula")} />}
 
         {vista === "terminos" && <Terminos onVolver={() => irA("caratula")} />}
+
+        {vista === "nosotros" && (
+          <AboutUs
+            onVolver={() => irA("caratula")}
+            onExplorar={() => irA("catalogo")}
+            onFaq={() => irA("faq")}
+          />
+        )}
       </main>
 
 
@@ -160,6 +185,7 @@ function App() {
         onCarrito={() => irA("carrito")}
         onFaq={() => irA("faq")}
         onTerminos={() => irA("terminos")}
+        onNosotros={() => irA("nosotros")}
       />
     </>
   );

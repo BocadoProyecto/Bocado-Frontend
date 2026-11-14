@@ -10,6 +10,7 @@ export default function Navbar({
   onCambiarModoDonar,
   onInicio,
   onCarrito,
+  onNosotros,
 }) {
   // evita que el link recargue la página y ejecuta la acción que llega por props
   function manejar(e, accion) {
@@ -28,6 +29,14 @@ export default function Navbar({
       </a>
 
       <nav className="navbar__nav">
+        <a
+          href="#"
+          className="navbar__link"
+          onClick={(e) => manejar(e, onNosotros)}
+        >
+          Nosotros
+        </a>
+
         <BtnDonar activo={modoDonar} onCambiar={onCambiarModoDonar} />
 
         {/* El login: botón + modal (Components/login) */}
