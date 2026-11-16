@@ -4,14 +4,18 @@ import "./FormularioRegistro.css";
 import FormularioRegistro from "./FormularioRegistro";
 import "./BotonIngresar.css";
 
-function BotonIngresar() {
-  const [abierto, setAbierto] = useState(false);
+// abierto / onAbrir / onCerrar: el App decide cuándo se muestra el modal
+// (así el carrito puede abrirlo si no hay sesión).
+// sesion: { token, nombre } o null. onLogin(sesion) y onSalir() los maneja el App.
+function BotonIngresar({ abierto, onAbrir, onCerrar, sesion, onLogin, onSalir }) {
   const [tipo, setTipo] = useState("cliente");
   const [modo, setModo] = useState("login");
+  const [aviso, setAviso] = useState("");
 
   function cerrar() {
-    setAbierto(false);
+    onCerrar();
     setModo("login");
+    setAviso("");
   }
 
   useEffect(() => {
@@ -27,11 +31,17 @@ function BotonIngresar() {
 
   return (
     <>
-            <button className="btn btn--oscuro btn--sm" onClick={() => setAbierto(true)}>
-        Ingresar
-      </button>
+      {sesion ? (
+        <button className="btn btn--oscuro btn--sm" onClick={onSalir}>
+          Salir ({sesion.nombre})
+        </button>
+      ) : (
+        <button className="btn btn--oscuro btn--sm" onClick={onAbrir}>
+          Ingresar
+        </button>
+      )}
 
-      {abierto && (
+      {abierto && !sesion && (
         <div className="modal-fondo" onClick={cerrar}>
           <div
             className={modo === "registro" ? "modal modal--ancho" : "modal"}
@@ -65,15 +75,26 @@ function BotonIngresar() {
             {modo === "login" ? (
               <FormularioLogin
                 tipo={tipo}
-                onExito={cerrar}
-                onIrARegistro={() => setModo("registro")}
+                aviso={aviso}
+                onExito={(datos) => {
+                  onLogin(datos);
+                  setModo("login");
+                  setAviso("");
+                }}
+                onIrARegistro={() => {
+                  setAviso("");
+                  setModo("registro");
+                }}
               />
             ) : (
               <FormularioRegistro
-              tipo={tipo}
-              onIrALogin={() => setModo("login")}
-                onExito={cerrar}
-            />
+                tipo={tipo}
+                onIrALogin={() => setModo("login")}
+                onExito={() => {
+                  setAviso("Cuenta creada. Ingresá con tu email y contraseña.");
+                  setModo("login");
+                }}
+              />
             )}
           </div>
         </div>

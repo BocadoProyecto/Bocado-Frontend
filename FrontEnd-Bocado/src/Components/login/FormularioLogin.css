@@ -99,3 +99,12 @@
 .login-cambiar:focus-visible {
   color: var(--naranja-osc);
 }
+.login-aviso {
+  margin: 8px 0 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #e6f4ea;
+  color: #1e6b3a;
+  font-size: 14px;
+  font-weight: 700;
+}

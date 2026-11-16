@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import Navbar from "./Components/navbar/Navbar";
+import FormProducto from "./Components/formProducto/FormProducto";
 import Hero from "./Components/Hero/Hero";
 import Carrusel from "./Components/Carrusel/Carrusel";
 import Catalogo from "./Components/Catalogo/Catalogo";
@@ -18,6 +19,16 @@ import Panaderias from "./pages/panaderias/Panaderias";
 
 import "./App.css";
 
+// La sesión (token + nombre) se guarda en el navegador para que no se pierda al recargar.
+// token 1 = cliente, token 2 = panadería
+function leerSesion() {
+  try {
+    return JSON.parse(localStorage.getItem("bocado_sesion"));
+  } catch {
+    return null;
+  }
+}
+
 function App() {
   // Q pantalla se muestra
   const [vista, setVista] = useState("caratula");
@@ -31,6 +42,46 @@ function App() {
 
   // id de la panadería que se está viendo
   const [panaderiaId, setPanaderiaId] = useState(null);
+    // { token, nombre } si hay alguien logueado, o null
+  const [sesion, setSesion] = useState(leerSesion);
+  const [loginAbierto, setLoginAbierto] = useState(false);
+  // true si lo mandamos a loguearse desde el carrito: al entrar lo llevamos a pagar
+  const [pagarAlLoguear, setPagarAlLoguear] = useState(false);
+
+  const token = sesion ? sesion.token : 0;
+
+  function iniciarSesion(datos) {
+    localStorage.setItem("bocado_sesion", JSON.stringify(datos));
+    setSesion(datos);
+    setLoginAbierto(false);
+    if (pagarAlLoguear) {
+      setPagarAlLoguear(false);
+      irA("pago");
+    }
+  }
+
+  function cerrarSesion() {
+    localStorage.removeItem("bocado_sesion");
+    setSesion(null);
+    setPagarAlLoguear(false);
+    // si estaba en una pantalla que ya no le corresponde, lo sacamos de ahí
+    if (vista === "subirProducto" || vista === "pago") irA("caratula");
+  }
+
+  function cerrarLogin() {
+    setLoginAbierto(false);
+    setPagarAlLoguear(false);
+  }
+
+  // Botón "Finalizar compra": con token 1 o más sigue, sin token abre el login
+  function irAPagar() {
+    if (token >= 1) {
+      irA("pago");
+      return;
+    }
+    setPagarAlLoguear(true);
+    setLoginAbierto(true);
+  }
 
   function irA(nuevaVista) {
     setVista(nuevaVista);
@@ -89,13 +140,20 @@ function App() {
         onExplorar={() => irA("catalogo")}
         onCarrito={() => irA("carrito")}
         onNosotros={() => irA("nosotros")}
+        sesion={sesion}
+        loginAbierto={loginAbierto}
+        onAbrirLogin={() => setLoginAbierto(true)}
+        onCerrarLogin={cerrarLogin}
+        onLogin={iniciarSesion}
+        onSalir={cerrarSesion}
+        onSubirProductos={() => irA("subirProducto")}
       />
 
       <main>
         {vista === "caratula" && (
           <>
             <Hero onVerProductos={() => irA("catalogo")} />
-<Carrusel onVerPanaderia={irAPanaderia} />
+            <Carrusel onVerPanaderia={irAPanaderia} />
             <ParallaxBocado
               onVerProductos={() => irA("catalogo")}
               onPanaderias={() => irA("panaderias")}
@@ -139,11 +197,19 @@ function App() {
             onQuitar={quitarDelCarrito}
             onVaciar={vaciarCarrito}
             onSeguir={() => irA("catalogo")}
-            onPagar={() => irA("pago")}
+            onPagar={irAPagar}
           />
         )}
 
-        {vista === "pago" && (
+                {/* Solo para panaderías (token 2) */}
+        {vista === "subirProducto" && token === 2 && (
+          <FormProducto
+            panaderia={sesion.nombre}
+            onVolver={() => irA("caratula")}
+          />
+        )}
+
+        {vista === "pago" && token >= 1 && (
           <Pago
             items={items}
             onVolver={() => irA("carrito")}
