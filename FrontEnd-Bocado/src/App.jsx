@@ -15,6 +15,8 @@ import AnimacionIntro from "./Components/animacionIntro/AnimacionIntro";
 import AboutUs from "./Components/aboutUs/AboutUs";
 import ParallaxBocado from "./Components/parallaxBocado/ParallaxBocado";
 import Panaderias from "./pages/panaderias/Panaderias";
+import ModalDonacion from "./Components/modalDonacion/ModalDonacion";
+
 
 import "./App.css";
 
@@ -26,6 +28,8 @@ function App() {
   const [items, setItems] = useState([]);
 
   const [modoDonar, setModoDonar] = useState(false);
+
+  const [mostrarDonacion, setMostrarDonacion] = useState(false);
 
   const [mostrarIntro, setMostrarIntro] = useState(true);
 
@@ -139,7 +143,7 @@ function App() {
             onQuitar={quitarDelCarrito}
             onVaciar={vaciarCarrito}
             onSeguir={() => irA("catalogo")}
-            onPagar={() => irA("pago")}
+            onPagar={() => setMostrarDonacion(true)}
           />
         )}
 
@@ -172,6 +176,16 @@ function App() {
           />
         )}
       </main>
+
+      {mostrarDonacion && (
+        <ModalDonacion
+          onCerrar={() => setMostrarDonacion(false)}
+          onSeguir={() => {
+            setMostrarDonacion(false);
+            irA("pago");
+          }}
+        />
+      )}
 
 
 
