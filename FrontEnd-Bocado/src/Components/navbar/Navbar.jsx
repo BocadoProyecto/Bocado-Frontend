@@ -11,6 +11,13 @@ export default function Navbar({
   onInicio,
   onCarrito,
   onNosotros,
+  sesion,
+  loginAbierto,
+  onAbrirLogin,
+  onCerrarLogin,
+  onLogin,
+  onSalir,
+  onSubirProductos,
 }) {
   // evita que el link recargue la página y ejecuta la acción que llega por props
   function manejar(e, accion) {
@@ -39,8 +46,26 @@ export default function Navbar({
 
         <BtnDonar activo={modoDonar} onCambiar={onCambiarModoDonar} />
 
+                {/* Solo las panaderías (token 2) ven este botón */}
+        {sesion && sesion.token === 2 && (
+          <button
+            type="button"
+            className="btn btn--sm btn--outline"
+            onClick={onSubirProductos}
+          >
+            Subir productos
+          </button>
+        )}
+
         {/* El login: botón + modal (Components/login) */}
-        <BotonIngresar />
+        <BotonIngresar
+          abierto={loginAbierto}
+          onAbrir={onAbrirLogin}
+          onCerrar={onCerrarLogin}
+          sesion={sesion}
+          onLogin={onLogin}
+          onSalir={onSalir}
+        />
 
         <a
           href="#"
@@ -68,4 +93,4 @@ export default function Navbar({
       </nav>
     </header>
   );
-}
+}

@@ -154,3 +154,24 @@
 .form-producto .foto-item .foto-quitar:hover {
   background-color: rgba(0, 0, 0, 0.85);
 }
+.form-producto .form-publicando {
+  margin: 0 0 12px;
+}
+
+.form-producto .form-mensaje {
+  margin: 12px 0 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.form-producto .form-mensaje--error {
+  background: #fde8e8;
+  color: #a12626;
+}
+
+.form-producto .form-mensaje--exito {
+  background: #e6f4ea;
+  color: #1e6b3a;
+}

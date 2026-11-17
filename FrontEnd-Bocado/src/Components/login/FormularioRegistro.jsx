@@ -25,7 +25,7 @@ function FormularioRegistro({ tipo, onIrALogin, onExito }) {
   }
 
   // Revisa los datos al tocar el botón. Si una regla falla, muestra el error y corta.
-  function manejarEnvio(e) {
+    async function manejarEnvio(e) {
     e.preventDefault();
 
     const faltaAlgo =
@@ -59,9 +59,48 @@ function FormularioRegistro({ tipo, onIrALogin, onExito }) {
       return;
     }
 
-    setError("");
-    console.log("Registro:", { tipo, ...datos });
-    if (onExito) onExito();
+     setError("");
+
+    // Armamos el body con los campos que necesita cada tipo de cuenta
+    const body = esPanaderia
+      ? {
+          nombre: datos.nombre.trim(),
+          email: datos.email.trim(),
+          contrasena: datos.password,
+          telefono: datos.telefono.trim(),
+          localidad: datos.localidad.trim(),
+          direccion: datos.direccion.trim(),
+          mensaje: datos.mensaje.trim(),
+        }
+      : {
+          email: datos.email.trim(),
+          contrasena: datos.password,
+          telefono: datos.telefono.trim(),
+        };
+
+    const ruta = esPanaderia ? "panaderias" : "usuarios";
+
+    try {
+      const respuesta = await fetch(
+        `http://localhost:3000/auth/${ruta}/registro`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        },
+      );
+      const respuestaJson = await respuesta.json();
+
+      if (!respuesta.ok) {
+        setError(respuestaJson.mensaje || "No pudimos crear la cuenta.");
+        return;
+      }
+
+      // cuenta creada: el modal pasa al login
+      if (onExito) onExito();
+    } catch {
+      setError("No pudimos conectar con el servidor.");
+    }
   }
 
   const etiqueta = esPanaderia ? "Panadería solidaria" : "Nueva cuenta";
