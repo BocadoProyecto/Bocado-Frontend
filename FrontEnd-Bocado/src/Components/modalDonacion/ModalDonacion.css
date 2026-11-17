@@ -91,3 +91,120 @@
     border-top: 1.5px solid #f2e2a0;
   }
 }
+
+.donacion__grilla {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 24px;
+  }
+  
+  /* Las tarjetas del popup, siempre con el estilo del modo donar */
+  .donacion .card {
+    background: #fffdf3;
+    border: 2px solid #f5c518;
+  }
+  
+  .donacion .card__imagen {
+    background: #fff3c4;
+  }
+  
+  .donacion .card .btn--primary {
+    background: #f5c518;
+    color: var(--ink);
+  }
+  .donacion .card .btn--primary:hover {
+    background: #e0b000;
+  }
+
+/* Tarjetas más compactas dentro del popup */
+.donacion .card__imagen {
+  aspect-ratio: auto;
+  height: 110px;
+}
+
+.donacion .card__cuerpo {
+  padding: 12px 14px 14px;
+  gap: 2px;
+}
+
+.donacion .card__nombre {
+  font-size: 1.05rem;
+}
+
+.donacion .card__precio {
+  font-size: 1.1rem;
+}
+
+.donacion .card__boton {
+  margin-top: 8px;
+}
+
+@media (max-width: 1000px) {
+  .donacion__grilla {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Panel "Tu donación" */
+.donacion__vacio {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.donacion__lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.donacion__lista li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 2px solid #f5c518;
+  border-radius: 12px;
+  background: #ffffff;
+  font-weight: 800;
+}
+
+.donacion__lista span:first-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.donacion__lista small {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.donacion__total {
+  margin: 4px 0 0;
+  padding-top: 10px;
+  border-top: 1.5px solid #f2e2a0;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Botón + y contador − N + sobre la foto, en amarillo */
+.donacion .card__mas,
+.donacion .card__contador-btn {
+  color: #9a6a00;
+}
+
+.donacion .card__mas:hover,
+.donacion .card__contador-btn:hover:not(:disabled) {
+  background: #f5c518;
+  color: var(--ink);
+}
+
+.donacion .card__contador {
+  box-shadow: 0 0 0 2px #f5c518, 0 2px 8px rgba(58, 54, 49, 0.25);
+}

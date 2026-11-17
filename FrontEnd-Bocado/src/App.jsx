@@ -179,6 +179,9 @@ function App() {
 
       {mostrarDonacion && (
         <ModalDonacion
+          items={items}
+          onAgregar={(producto) => agregarAlCarrito(producto, true)}
+          onQuitarUno={(id) => quitarUnoDelCarrito(id, true)}
           onCerrar={() => setMostrarDonacion(false)}
           onSeguir={() => {
             setMostrarDonacion(false);
