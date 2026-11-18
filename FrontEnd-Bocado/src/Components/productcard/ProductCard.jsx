@@ -1,7 +1,9 @@
+import { API_URL } from "../../config";
 import "./ProductCard.css";
 
+
 // cantidad: cuántas unidades hay en el carrito. onQuitarUno: resta una unidad.
-// onVerPanaderia: abre la página de la panadería. (CAMBIO 1: nueva prop)
+// onVerPanaderia: abre la página de la panadería.
 export default function ProductCard({
   producto,
   datosPanaderia,
@@ -33,7 +35,7 @@ export default function ProductCard({
         {imagen && (
           <img
             className="card__foto"
-            src={`http://localhost:3000/Imagenes/Productos/${imagen}`}
+            src={`${API_URL}/Imagenes/Productos/${imagen}`}
             alt={nombre}
           />
         )}
@@ -79,12 +81,12 @@ export default function ProductCard({
           {datosPanaderia && datosPanaderia.logo && (
             <img
               className="card__logo"
-              src={`http://localhost:3000/Imagenes/Panaderias/${datosPanaderia.logo}`}
+              src={`${API_URL}/Imagenes/Panaderias/${datosPanaderia.logo}`}
               alt=""
             />
           )}
 
-          {/* CAMBIO 2: si hay onVerPanaderia, el nombre es un botón-enlace */}
+                    {/* si hay onVerPanaderia, el nombre es un botón-enlace */}
           {onVerPanaderia && datosPanaderia ? (
             <button
               type="button"

@@ -155,7 +155,7 @@ function irAPanaderia(id) {
         modoDonar={modoDonar}
         onCambiarModoDonar={setModoDonar}
         onInicio={() => irA("caratula")}
-        onExplorar={() => irA("catalogo")}
+        
         onCarrito={() => irA("carrito")}
         onNosotros={() => irA("nosotros")}
         sesion={sesion}

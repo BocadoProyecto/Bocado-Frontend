@@ -1,3 +1,4 @@
+import { API_URL } from "../../config";
 import { useState, useEffect } from "react";
 import "./Catalogo.css";
 import ProductCard from "../productcard/ProductCard";
@@ -20,7 +21,7 @@ export default function Catalogo({ onVolver, onAgregar, onQuitarUno, onVerPanade
 // cuando los corchetes estan vacios es para que se carguen una unica vez cuando se carga la pagina
   useEffect(() => {
   fetch(
-      `http://localhost:3000/productos`).then((respuesta) => respuesta.json())
+      `${API_URL}/productos`).then((respuesta) => respuesta.json())
       .then((datos) => {
         setProductos(datos);
         setErrorServidor("");
@@ -34,7 +35,7 @@ export default function Catalogo({ onVolver, onAgregar, onQuitarUno, onVerPanade
      
 
     fetch(
-      `http://localhost:3000/panaderias`
+      `${API_URL}/panaderias`
     )
       .then((respuesta) => respuesta.json())
       .then((datos) => {
@@ -54,7 +55,7 @@ export default function Catalogo({ onVolver, onAgregar, onQuitarUno, onVerPanade
     }
 
     fetch(
-      `http://localhost:3000/panaderias?lat=${ubicacion.lat}&lng=${ubicacion.lng}&radio=${radio}`
+      `${API_URL}/panaderias?lat=${ubicacion.lat}&lng=${ubicacion.lng}&radio=${radio}`
     )
       .then((respuesta) => respuesta.json())
       .then((datos) => {
@@ -162,7 +163,7 @@ export default function Catalogo({ onVolver, onAgregar, onQuitarUno, onVerPanade
 
       {visibles.length > 0 ? (
         <div className="catalogo__grilla">
-          {/* CAMBIO 2: queda un solo map (antes estaba repetido) */}
+          
           {visibles.map((producto) => {
             // cuántas unidades de este producto hay en el carrito (en el modo actual)
             const cantidad = items.filter(

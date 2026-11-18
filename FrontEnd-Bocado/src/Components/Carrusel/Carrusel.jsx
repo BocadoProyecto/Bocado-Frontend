@@ -1,5 +1,7 @@
+import { API_URL } from "../../config";
 import { useState, useEffect } from "react";
 import "./Carrusel.css";
+
 
 const IDS_DESTACADAS = [1, 2, 18, 4, 5];
 
@@ -10,7 +12,7 @@ export default function Carrusel({ onVerPanaderia }) {
 
   // se carga una sola vez, igual que en el Catalogo
   useEffect(() => {
-    fetch("http://localhost:3000/panaderias")
+    fetch(`${API_URL}/panaderias`)
       .then((respuesta) => respuesta.json())
       .then((datos) => {
   // buscamos cada panadería por su id, respetando el orden de la lista
@@ -92,7 +94,7 @@ export default function Carrusel({ onVerPanaderia }) {
                 <div className="carrusel__cabecera">
                   <img
                     className="carrusel__logo"
-                    src={`http://localhost:3000/Imagenes/Panaderias/${p.logo}`}
+                    src={`${API_URL}/Imagenes/Panaderias/${p.logo}`}
                     alt={`Logo de ${p.nombre}`}
                   />
                   <h3 className="carrusel__nombre">{p.nombre}</h3>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./Panaderias.css";
-
+import { API_URL } from "../../config";
 export default function Panaderias({ onVolver, onVerPanaderia }) {
   const [panaderias, setPanaderias] = useState([]);
   const [productos, setProductos] = useState([]);
@@ -9,7 +9,7 @@ export default function Panaderias({ onVolver, onVerPanaderia }) {
   const [errorServidor, setErrorServidor] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/panaderias")
+    fetch(`${API_URL}/panaderias`)
       .then((respuesta) => respuesta.json())
       .then((datos) => {
         setPanaderias(datos);
@@ -20,7 +20,7 @@ export default function Panaderias({ onVolver, onVerPanaderia }) {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/productos")
+    fetch(`${API_URL}/productos`)
       .then((respuesta) => respuesta.json())
       .then((datos) => setProductos(datos))
       .catch(() => setErrorServidor("No pudimos conectar con el servidor."));
@@ -95,7 +95,7 @@ export default function Panaderias({ onVolver, onVerPanaderia }) {
                 {panaderia.logo ? (
                   <img
                     className="panaderia-card__foto"
-                    src={`http://localhost:3000/Imagenes/Panaderias/${panaderia.logo}`}
+                    src={`${API_URL}/Imagenes/Panaderias/${panaderia.logo}`}
                     alt={panaderia.nombre}
                   />
                 ) : (

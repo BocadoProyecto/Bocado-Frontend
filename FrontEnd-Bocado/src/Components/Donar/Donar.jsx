@@ -1,18 +1,20 @@
+import { API_URL } from "../../config";
 import { useState, useEffect } from "react";
 import "../Catalogo/Catalogo.css";
 import ProductCard from "../productcard/ProductCard";
+
 
 export default function Donar({ onVolver, onAgregar }) {
   const [productos, setProductos] = useState([]);
   const [panaderias, setPanaderias] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/productos")
+    fetch(`${API_URL}/productos`)
       .then((respuesta) => respuesta.json())
       .then((datos) => setProductos(datos))
       .catch((error) => console.log("Error al cargar productos:", error));
 
-    fetch("http://localhost:3000/panaderias")
+    fetch(`${API_URL}/panaderias`)
       .then((respuesta) => respuesta.json())
       .then((datos) => setPanaderias(datos))
       .catch((error) => console.log("Error al cargar panaderías:", error));

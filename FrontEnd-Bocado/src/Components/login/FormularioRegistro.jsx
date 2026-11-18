@@ -1,6 +1,8 @@
+import { API_URL } from "../../config";
 import { useState } from "react";
 import "./FormularioLogin.css";
 import "./FormularioRegistro.css";
+
 
 function FormularioRegistro({ tipo, onIrALogin, onExito }) {
   const esPanaderia = tipo === "panaderia";
@@ -82,7 +84,7 @@ function FormularioRegistro({ tipo, onIrALogin, onExito }) {
 
     try {
       const respuesta = await fetch(
-        `http://localhost:3000/auth/${ruta}/registro`,
+        `${API_URL}/auth/${ruta}/registro`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

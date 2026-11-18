@@ -1,7 +1,9 @@
+import { API_URL } from "../../config";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Panaderia.css";
 import ProductCard from "../productcard/ProductCard";
+
 
 // El id de la panadería viene de la URL (/panaderias/:id). El resto es igual que en el Catalogo.
 export default function Panaderia({
@@ -18,14 +20,14 @@ export default function Panaderia({
 
   // se cargan una sola vez, igual que en el Catalogo
   useEffect(() => {
-    fetch("http://localhost:3000/panaderias")
+    fetch(`${API_URL}/panaderias`)
       .then((respuesta) => respuesta.json())
       .then((datos) => setPanaderias(datos))
       .catch(() => setErrorServidor("No pudimos conectar con el servidor."));
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/productos")
+    fetch(`${API_URL}/productos`)
       .then((respuesta) => respuesta.json())
       .then((datos) => setProductos(datos))
       .catch(() => setErrorServidor("No pudimos conectar con el servidor."));
@@ -61,7 +63,7 @@ export default function Panaderia({
         {/* ajustamos la ruta de la imagen cuando vea ProductCard */}
         <img
           className="panaderia__logo"
-          src={`http://localhost:3000/Imagenes/Panaderias/${panaderia.logo}`}
+          src={`${API_URL}/Imagenes/Panaderias/${panaderia.logo}`}
           alt={panaderia.nombre}
         />
         <div>

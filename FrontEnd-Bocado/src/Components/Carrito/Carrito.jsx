@@ -1,4 +1,6 @@
+import { API_URL } from "../../config";
 import "./Carrito.css";
+
 
 function sumarPrecios(lista) {
   let suma = 0;
@@ -30,7 +32,7 @@ function ListaCarrito({ titulo, productos, onQuitar, donacion }) {
                         {producto.imagen ? (
               <img
                 className="carrito__foto"
-                src={`http://localhost:3000/Imagenes/Productos/${producto.imagen}`}
+                src={`${API_URL}/Imagenes/Productos/${producto.imagen}`}
                 alt={producto.nombre}
               />
             ) : (

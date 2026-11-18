@@ -1,3 +1,4 @@
+import { API_URL } from "../../config";
 import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -7,6 +8,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import "./ModalPago.css";
+
 
 // La clave PÚBLICA de prueba (pk_test_...) va en el archivo .env.local del front
 const clavePublica = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
@@ -89,7 +91,7 @@ export default function ModalPago({ items, total, onCerrar, onExito }) {
   useEffect(() => {
     let cancelado = false;
 
-    fetch("http://localhost:3000/pagos/crear-intento", {
+    fetch(`${API_URL}/pagos/crear-intento`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ids: items.map((producto) => producto.id) }),

@@ -1,5 +1,7 @@
+import { API_URL } from "../../config";
 import { useState } from "react";
 import "./FormProducto.css";
+
 
 // Las mismas categorías que ya usa el catálogo
 const CATEGORIAS = ["Panes", "Facturas", "Dulces", "Salados", "Tortas"];
@@ -99,7 +101,7 @@ function FormProducto({ panaderia, onVolver }) {
       const imagenBase64 =
         fotos.length > 0 ? await leerComoBase64(fotos[0].archivo) : undefined;
 
-      const respuesta = await fetch("http://localhost:3000/productos", {
+      const respuesta = await fetch(`${API_URL}/productos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

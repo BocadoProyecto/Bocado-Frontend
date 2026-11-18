@@ -1,5 +1,7 @@
+import { API_URL } from "../../config";
 import { useState } from "react";
 import "./FormularioLogin.css";
+
 
 function FormularioLogin({ tipo, aviso, onExito, onIrARegistro }) {
   const [email, setEmail] = useState("");
@@ -32,7 +34,7 @@ function FormularioLogin({ tipo, aviso, onExito, onIrARegistro }) {
     const ruta = esPanaderia ? "panaderias" : "usuarios";
 
     try {
-      const respuesta = await fetch(`http://localhost:3000/auth/${ruta}/login`, {
+      const respuesta = await fetch(`${API_URL}/auth/${ruta}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim(), contrasena: password }),
