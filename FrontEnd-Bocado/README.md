@@ -1,16 +1,53 @@
-# React + Vite
+# Bocado · Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+E-commerce de excedentes de panadería: "Come rico, paga poco, dona más". Hecho con React 19 y Vite.
 
-Currently, two official plugins are available:
+Sitio publicado: https://bocadoproyecto.github.io/Bocado-Frontend/
+(necesita el backend corriendo en local para mostrar productos y panaderías)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Cómo correrlo
 
-## React Compiler
+1. Instalar dependencias:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+```
 
-## Expanding the ESLint configuration
+2. Crear un archivo `.env.local` en esta carpeta con la clave pública de Stripe de prueba:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+VITE_STRIPE_PUBLIC_KEY=pk_test_...
+```
+
+3. Tener el backend corriendo en `http://localhost:3000` (ver el README del backend).
+
+4. Arrancar el front:
+
+```bash
+npm run dev
+```
+
+## Qué incluye
+
+- Inicio, catálogo con filtros (panadería, categoría, distancia) y una página por cada panadería.
+- Registro e inicio de sesión de clientes y panaderías.
+- Carrito separado en "Para vos" y "Para donar".
+- Modo donar: botón en la barra de navegación y una opción de donar antes de pagar.
+- Pago con tarjeta con Stripe en modo de prueba (tarjeta `4242 4242 4242 4242`); los otros métodos son simulados.
+- Las panaderías pueden cargar productos con un formulario.
+- Navegación con React Router (`HashRouter`).
+
+## Cuentas de prueba
+
+- Cliente: `usuario1@bocado.com` / `1234`
+- Panadería: `ClubDelPan@bocado.com` / `1234`
+
+## Publicar en GitHub Pages
+
+```bash
+npm run deploy
+```
+
+## Equipo
+
+Grupo 3 · Clase C: Camila Vera, Jonathan Fontes, Tomás Casas, Leonela Viera y Rodrigo Maina.
