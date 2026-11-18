@@ -4,8 +4,8 @@ import ProductCard from "../productcard/ProductCard";
 import FiltroDistancia from "./FiltroDistancia";
 
 
-// onVolver: vuelve a la carátula. onAgregar: se ejecuta al agregar un producto.
-// onVerPanaderia: abre la página de una panadería. (CAMBIO 1: nueva prop)
+// onVolver: vuelve a la pag 1 onAgregar: se ejecuta al agregar un producto.
+// onVerPanaderia: abre la página de una panadería. 
 export default function Catalogo({ onVolver, onAgregar, onQuitarUno, onVerPanaderia, items = [], modoDonar = false }) {
 // Estado de los filtros. "todas" significa "sin filtrar".
   const [panaderia, setPanaderia] = useState("todas");

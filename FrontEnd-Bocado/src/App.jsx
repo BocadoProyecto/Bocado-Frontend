@@ -1,4 +1,4 @@
-
+import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "./Components/navbar/Navbar";
 import FormProducto from "./Components/formProducto/FormProducto";
@@ -30,10 +30,23 @@ function leerSesion() {
   }
 }
 
+// cada "vista" de antes ahora es una dirección (URL)
+const rutas = {
+  caratula: "/",
+  catalogo: "/productos",
+  panaderias: "/panaderias",
+  carrito: "/carrito",
+  subirProducto: "/subir-producto",
+  pago: "/pago",
+  donar: "/donar",
+  faq: "/faq",
+  terminos: "/terminos",
+  nosotros: "/nosotros",
+};
+
 function App() {
   // Q pantalla se muestra
-  const [vista, setVista] = useState("caratula");
-
+  const navigate = useNavigate();
   //la lista en el carrito
   const [items, setItems] = useState([]);
 
@@ -44,7 +57,7 @@ function App() {
   const [mostrarIntro, setMostrarIntro] = useState(true);
 
   // id de la panadería que se está viendo
-  const [panaderiaId, setPanaderiaId] = useState(null);
+  const location = useLocation();
     // { token, nombre } si hay alguien logueado, o null
   const [sesion, setSesion] = useState(leerSesion);
   const [loginAbierto, setLoginAbierto] = useState(false);
@@ -68,7 +81,9 @@ function App() {
     setSesion(null);
     setPagarAlLoguear(false);
     // si estaba en una pantalla que ya no le corresponde, lo sacamos de ahí
-    if (vista === "subirProducto" || vista === "pago") irA("caratula");
+    if (location.pathname === "/subir-producto" || location.pathname === "/pago") {
+  irA("caratula");
+}
   }
 
   function cerrarLogin() {
@@ -87,14 +102,14 @@ function App() {
   }
 
   function irA(nuevaVista) {
-    setVista(nuevaVista);
-    window.scrollTo(0, 0); // te lleva para arriba
-  }
+  navigate(rutas[nuevaVista]);
+  window.scrollTo(0, 0);
+}
 
-  function irAPanaderia(id) {
-    setPanaderiaId(id); // guardamos cuál panadería
-    irA("panaderia"); // y cambiamos de pantalla
-  }
+function irAPanaderia(id) {
+  navigate("/panaderias/" + id);
+  window.scrollTo(0, 0);
+}
 
   function agregarAlCarrito(producto, esDonacion = modoDonar) {
     const nuevaLista = items.slice(); // la listita
@@ -152,67 +167,85 @@ function App() {
         onSubirProductos={() => irA("subirProducto")}
       />
 
-      <main>
-        {vista === "caratula" && (
-          <>
-            <Hero onVerProductos={() => irA("catalogo")} />
-            <Carrusel onVerPanaderia={irAPanaderia} />
-            <ParallaxBocado
-              onVerProductos={() => irA("catalogo")}
-              onPanaderias={() => irA("panaderias")}
-            />
-            <AboutUs compacto onVerMas={() => irA("nosotros")} />
-          </>
-        )}
-
-        {vista === "catalogo" && (
-          <Catalogo
-            onVolver={() => irA("caratula")}
-            onAgregar={agregarAlCarrito}
-            onQuitarUno={quitarUnoDelCarrito}
-            onVerPanaderia={irAPanaderia}
-            items={items}
-            modoDonar={modoDonar}
+        <main>
+        <Routes>
+    <Route
+      path="/"
+      element={
+        <>
+          <Hero onVerProductos={() => irA("catalogo")} />
+          <Carrusel onVerPanaderia={irAPanaderia} />
+          <ParallaxBocado
+            onVerProductos={() => irA("catalogo")}
+            onPanaderias={() => irA("panaderias")}
           />
-        )}
-
-        {vista === "panaderias" && (
-          <Panaderias
-            onVolver={() => irA("caratula")}
-            onVerPanaderia={irAPanaderia}
-          />
-        )}
-
-        {vista === "panaderia" && (
-          <Panaderia
-            panaderiaId={panaderiaId}
-            onVolver={() => irA("catalogo")}
-            onAgregar={agregarAlCarrito}
-            onQuitarUno={quitarUnoDelCarrito}
-            items={items}
-            modoDonar={modoDonar}
-          />
-        )}
-
-        {vista === "carrito" && (
-          <Carrito
-            items={items}
-            onQuitar={quitarDelCarrito}
-            onVaciar={vaciarCarrito}
-            onSeguir={() => irA("catalogo")}
-            onPagar={() => setMostrarDonacion(true)}
-          />
-        )}
-
-                {/* Solo para panaderías (token 2) */}
-        {vista === "subirProducto" && token === 2 && (
+          <AboutUs compacto onVerMas={() => irA("nosotros")} />
+        </>
+      }
+    />
+    <Route
+      path="/productos"
+      element={
+        <Catalogo
+          onVolver={() => irA("caratula")}
+          onAgregar={agregarAlCarrito}
+          onQuitarUno={quitarUnoDelCarrito}
+          onVerPanaderia={irAPanaderia}
+          items={items}
+          modoDonar={modoDonar}
+        />
+      }
+    />
+    <Route
+      path="/panaderias"
+      element={
+        <Panaderias
+          onVolver={() => irA("caratula")}
+          onVerPanaderia={irAPanaderia}
+        />
+      }
+    />
+    <Route
+      path="/panaderias/:id"
+      element={
+        <Panaderia
+          onVolver={() => irA("catalogo")}
+          onAgregar={agregarAlCarrito}
+          onQuitarUno={quitarUnoDelCarrito}
+          items={items}
+          modoDonar={modoDonar}
+        />
+      }
+    />
+    <Route
+      path="/carrito"
+      element={
+        <Carrito
+          items={items}
+          onQuitar={quitarDelCarrito}
+          onVaciar={vaciarCarrito}
+          onSeguir={() => irA("catalogo")}
+          onPagar={() => setMostrarDonacion(true)}
+        />
+      }
+    />
+    <Route
+      path="/subir-producto"
+      element={
+        token === 2 ? (
           <FormProducto
             panaderia={sesion.nombre}
             onVolver={() => irA("caratula")}
           />
-        )}
-
-        {vista === "pago" && token >= 1 && (
+        ) : (
+          <Navigate to="/" />
+        )
+      }
+    />
+    <Route
+      path="/pago"
+      element={
+        token >= 1 ? (
           <Pago
             items={items}
             onVolver={() => irA("carrito")}
@@ -220,26 +253,38 @@ function App() {
             onDonar={() => irA("donar")}
             onSeguir={() => irA("catalogo")}
           />
-        )}
+        ) : (
+          <Navigate to="/carrito" />
+        )
+      }
+    />
+    <Route
+      path="/donar"
+      element={
+        <Donar
+          onVolver={() => irA("pago")}
+          onAgregar={(producto) => agregarAlCarrito(producto, true)}
+        />
+      }
+    />
+    <Route path="/faq" element={<Faq onVolver={() => irA("caratula")} />} />
+    <Route
+      path="/terminos"
+      element={<Terminos onVolver={() => irA("caratula")} />}
+    />
+    <Route
+      path="/nosotros"
+      element={
+        <AboutUs
+          onVolver={() => irA("caratula")}
+          onExplorar={() => irA("catalogo")}
+          onFaq={() => irA("faq")}
+        />
+      }
+    />
+    <Route path="*" element={<h2>Página no encontrada</h2>} />
+  </Routes>
 
-        {vista === "donar" && (
-          <Donar
-            onVolver={() => irA("pago")}
-            onAgregar={(producto) => agregarAlCarrito(producto, true)}
-          />
-        )}
-
-        {vista === "faq" && <Faq onVolver={() => irA("caratula")} />}
-
-        {vista === "terminos" && <Terminos onVolver={() => irA("caratula")} />}
-
-        {vista === "nosotros" && (
-          <AboutUs
-            onVolver={() => irA("caratula")}
-            onExplorar={() => irA("catalogo")}
-            onFaq={() => irA("faq")}
-          />
-        )}
       </main>
 
       {mostrarDonacion && (

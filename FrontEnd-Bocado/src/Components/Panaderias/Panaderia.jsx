@@ -1,16 +1,17 @@
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Panaderia.css";
 import ProductCard from "../productcard/ProductCard";
 
-// panaderiaId: cuál panadería se eligió. El resto es igual que en el Catalogo.
+// El id de la panadería viene de la URL (/panaderias/:id). El resto es igual que en el Catalogo.
 export default function Panaderia({
-  panaderiaId,
   onVolver,
   onAgregar,
   onQuitarUno,
   items = [],
   modoDonar = false,
 }) {
+  const { id } = useParams();
   const [panaderias, setPanaderias] = useState([]);
   const [productos, setProductos] = useState([]);
   const [errorServidor, setErrorServidor] = useState("");
@@ -30,8 +31,8 @@ export default function Panaderia({
       .catch(() => setErrorServidor("No pudimos conectar con el servidor."));
   }, []);
 
-  // buscamos la panadería que se eligió
-  const panaderia = panaderias.find((p) => p.id === panaderiaId);
+  // buscamos la panadería que se eligió (el id de la URL llega como texto)
+  const panaderia = panaderias.find((p) => String(p.id) === id);
 
   // mientras carga (o si hubo error) mostramos un mensaje
   if (!panaderia) {
@@ -58,7 +59,7 @@ export default function Panaderia({
 
       <div className="panaderia__portada">
         {/* ajustamos la ruta de la imagen cuando vea ProductCard */}
-                <img
+        <img
           className="panaderia__logo"
           src={`http://localhost:3000/Imagenes/Panaderias/${panaderia.logo}`}
           alt={panaderia.nombre}
